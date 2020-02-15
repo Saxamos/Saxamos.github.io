@@ -1,56 +1,37 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you: 
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-
-title: Saxablog
-email: samuel.rochette06@gmail.com
+title: Saxamos
 description:
   Personnal blog of Samuel, Data & Computer Science enthusiast, also Saxophonist.
-baseurl: "" # the subpath of your site, e.g. /blog
+permalink: ':title/'
+baseurl: ""
 url: "https://saxamos.github.io/"
-twitter_username: Sasamos
-github_username:  Saxamos
+site-twitter: Sasamos
 
-# Build settings
-theme: minima
+# Author Settings
+author: Samuel Rochette
+author-img: sam.png
+about-author: I am a data scientist focusing on modeling. Always hungry to keep learning.
+social-twitter: Sasamos
+social-facebook: srochette
+social-github: Saxamos
+social-linkedin: samuelrochette/?locale=en_US
+social-email: samuel.rochette06@gmail.com
+
+# Disqus
+discus-identifier: mr-brown # add your discus identifier
+
+# Tracker
+analytics: # Google Analytics
+
+# Build Settings
+markdown: kramdown
 plugins:
-  - jekyll-feed
+  - jekyll-paginate
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-feed
+  - jemoji
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+paginate: 8
+paginate_path: "/page/:num"
 
+exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
