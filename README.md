@@ -9,10 +9,9 @@ Inspired with ❤ from this [repo](https://artemsheludko.github.io/flexible-jeky
 ## Work to be done
 
 - Blog articles translation and writing
-- CV
+- Résumé
 - [Analytics](https://analytics.google.com/analytics/web/)
-- Support Emoji
-- Gérer plugin seo et autre pour rendre effectif
+- SEO plugin
 
 ## Development
 
