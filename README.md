@@ -1,4 +1,4 @@
-# Samuel Rochette personal website (blog & CV)
+# Samuel Rochette website
 
 
 Check the website [here](https://saxamos.github.io/)
