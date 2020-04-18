@@ -1,16 +1,16 @@
 ---
 layout: post
-title: Prediction intevrals
+title: Prediction intervals
 date: 2020-04-04
 description: 
 img: 2020-04-04/pred_int.png
 fig-caption: 
-tags: [Prediction intervals, Random forest, Quantile regression]
+tags: [Prediction intervals, Random forest, Quantile regression, Uncertainty]
 ---
 
 I gave a talk on this topic at the 
 [PyData NYC 2019](https://pydata.org/nyc2019/schedule/presentation/24/quantifying-uncertainty-in-machine-learning-models/).
-The video be found [here](https://www.youtube.com/watch?v=yk5cmVW3EA0)
+The video can be found [here](https://www.youtube.com/watch?v=yk5cmVW3EA0)
 
 ---
 
