@@ -2,7 +2,7 @@
 layout: post
 title: Prediction intervals
 date: 2020-04-04
-description: 
+description: Prediction intervals for regression in Machine Learning to get uncertainty insight
 img: 2020-04-04/pred_int.png
 fig-caption: 
 tags: [Prediction intervals, Random forest, Quantile regression, Uncertainty]

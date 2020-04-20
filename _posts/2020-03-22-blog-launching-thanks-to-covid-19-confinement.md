@@ -2,7 +2,7 @@
 layout: post
 title: Blog launching thanks to Covid-19 confinement 🚀
 date: 2020-03-22
-description: First post
+description: First post of the uncertainty ML blog of Samuel Rochette
 img: 2020-03-22/covid19.jpg
 fig-caption: 
 tags: [Launch, Blog, Covid-19]
