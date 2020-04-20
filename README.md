@@ -8,9 +8,8 @@ Inspired with ❤ from this [repo](https://artemsheludko.github.io/flexible-jeky
 
 ## Work to be done
 
-- Blog articles translation and writing
 - Résumé
-- [Analytics](https://analytics.google.com/analytics/web/)
+- Articles
 - SEO plugin
 
 ## Development
@@ -18,7 +17,7 @@ Inspired with ❤ from this [repo](https://artemsheludko.github.io/flexible-jeky
 Clone the repo and run:
 ```
 bundle update
-bundle exec jekyll serve
+JEKYLL_ENV=dev bundle exec jekyll serve
 ```
 
 ## License
