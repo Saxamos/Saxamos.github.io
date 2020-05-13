@@ -231,4 +231,3 @@ without calibration ¯\_(ツ)_/¯.
 [7] Obtaining Well Calibrated Probabilities Using Bayesian Binning. Mahdi Pakdaman, Gregory F. Cooper, and Milos Hauskrecht. 2015
 
 [8] Can You Trust Your Model's Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift. Yaniv Ovadia, Emily Fertig, Jie Ren, Zachary Nado, D Sculley, Sebastian Nowozin, Joshua V. Dillon, Balaji Lakshminarayanan, Jasper Snoek. 2019
-
