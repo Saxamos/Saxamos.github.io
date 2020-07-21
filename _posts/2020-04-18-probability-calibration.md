@@ -4,7 +4,6 @@ title: Probability calibration
 date: 2020-04-18
 description: Probability calibration for classification in Machine Learning to get uncertainty insight
 img: 2020-04-18/calibration.gif
-fig-caption: 
 tags: [Probability calibration, Uncertainty, Isotonic regression]
 ---
 

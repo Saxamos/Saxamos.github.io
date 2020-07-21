@@ -17,7 +17,7 @@ Inspired with ❤ from this [repo](https://artemsheludko.github.io/flexible-jeky
 Clone the repo and run:
 ```
 bundle update
-JEKYLL_ENV=dev bundle exec jekyll serve
+JEKYLL_ENV=dev bundle exec jekyll serve --drafts
 ```
 
 ## License

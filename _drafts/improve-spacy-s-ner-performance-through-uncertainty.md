@@ -4,7 +4,6 @@ title: Improve spaCy's NER performance through uncertainty
 date: 2020-05-08
 description: Focus on confidence to improve performance of a NLP model
 img: 2020-05-08/model_confidence.png
-fig-caption: 
 tags: [Uncertainty, NER, spaCy, Probability]
 ---
 
