@@ -2,27 +2,18 @@
 layout:    page
 title:     About
 permalink: /about/
-image:     /assets/img/toto.jpg
+image:     /assets/img/ski.png
 ---
 
-Hi, my name is Derrick Wells. I like being at the center of events, being free and enjoying every moment. Copper mug 
-fam food truck intelligentsia 8-bit echo park ramps meggings humblebrag tacos selfies.
+I am an applied mathematics & computer science enthusiast.
+I have worked on the deployment at scale of deep learning models for computer vision and NLP. 
+Moreover, I work on a side research project: measure the uncertainty in ML models.
 
-Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate 
-strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world 
-view of disruptive innovation via workplace diversity.
-
-***
-
-> Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, 
->a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.
+I am convinced that data scientists must have skills in both clean code practices and OPS to 
+lead projects to production.
 
 ***
 
-Proactively envisioned multimedia based expertise and cross-media growth strategies. Seamlessly visualize quality 
-intellectual capital without superior collaboration and idea-sharing. Holistically pontificate installed base 
-portals after maintainable products.
+> Young man, in mathematics you don't understand things. You just get used to them.
 
-Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive 
-e-commerce via process-centric "outside the box" thinking. Completely pursue scalable customer service through 
-sustainable potentialities.
+John von Neumann

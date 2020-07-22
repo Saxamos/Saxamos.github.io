@@ -20,10 +20,10 @@ To deploy simply push on master branch.
 
 ### Work to be done
 
-* Resume (_pages/about.md)
-* Google Analytics (check it works)
 * Disqus (fix problem)
 * Multilingual
+* Google Analytics (check it works)
+* Resume _pages/about.md ?
 
 ### License
 
