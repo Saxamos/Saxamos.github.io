@@ -1,25 +1,33 @@
 # Samuel Rochette website
 
+### Demo
 
 Check the website [here](https://saxamos.github.io/)
 
-Inspired with ❤ from this [repo](https://artemsheludko.github.io/flexible-jekyll/)
-![icone?](https://github.com/artemsheludko/flexible-jekyll/blob/master/assets/img/promo-img.jpg?raw=true)
+Inspired with ❤ from this [repo](https://github.com/artemsheludko/derrick)
 
-## Work to be done
+### Development
 
-- Résumé
-- Articles
-- SEO plugin
+To run the app locally, run `bundle install` to install the dependencies.
 
-## Development
-
-Clone the repo and run:
+Then start the server:
 ```
 bundle update
 JEKYLL_ENV=dev bundle exec jekyll serve --drafts
 ```
 
-## License
+To deploy simply push on master branch.
 
-GNU General Public License v3.0
+### Work to be done
+
+* Resume (_pages/about.md)
+* Disqus
+* Google Analytics
+* icon
+* previous plugins: (jekyll-seo-tag,jekyll-feed,jemoji)
+* contact in config yaml (insta et autre???)
+* multilingual
+
+### License
+
+Mit License
