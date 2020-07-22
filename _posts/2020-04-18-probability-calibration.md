@@ -8,7 +8,7 @@ tags:   [Probability-calibration, Uncertainty, Isotonic-regression]
 
 I gave a talk on this topic at the 
 [PyData NYC 2019](https://pydata.org/nyc2019/schedule/presentation/24/quantifying-uncertainty-in-machine-learning-models/).
-The video can be found [here](https://www.youtube.com/watch?v=yk5cmVW3EA0)
+Video can be found [here](https://www.youtube.com/watch?v=yk5cmVW3EA0)
 
 ---
 
@@ -22,10 +22,12 @@ to affirm that if the probability is 0.3, there is indeed a 30% risk that the tu
 This is far from being the case in practice for many algorithms.
 
 Below are two examples where having a calibrated probability is necessary:
+
 - In marketing, we evaluate what a client brings back throughout the period during which he remains 
 loyal to the company: the [Customer Lifetime Value (CLV)](https://clevertap.com/blog/customer-lifetime-value/). 
 It is then common to multiply the price of a product by the probability 
 that it has to be bought: $CLV = 200€\times0.1 = 20€$.
+
 - In medicine some results are sensitive. The order of probabilities of having cancer doesn't matter 
 to patients. In contrast, a probability with physical meaning is vital.
 
@@ -63,8 +65,11 @@ approximately 30% of them must actually have a malignant tumor.
 However, most classifiers are rarely calibrated. There is a way to measure the quality of an 
 estimator on this aspect: the calibration curve [1]. It is implemented in the scikit-learn 
 library. The algorithm is as follows:
+
 - cut the [0, 1] axis into several intervals
+
 - select the individuals whose probability belongs to each interval
+
 - calculate the proportion of individuals belonging to class C
 
 This [code](https://gist.github.com/Saxamos/e27c3c83aa57c747a88aecbd84afa10c) is used to generate Figures 1 and 2.
@@ -81,19 +86,23 @@ method and the classifiers have been set to have comparable
 - **The black line** represents the perfect calibration: for each group of individuals with a 
 similar predicted probability, the proportion (empirical probability) of these individuals really 
 being in class 1 is equal to the predicted probability.
+
 - **Logistic Regression** is the best calibrated model in this figure: it is close to the black line. 
 This is indeed a special case of generalized linear models. A probability law (Bernoulli) is associated 
 with the response $Y$. The model therefore gives probabilities in the statistical sense by construction hypothesis.
+
 - **The Naive Bayes Classifier** already sees its probabilities less well calibrated, especially those 
 close to 1. In fact, this model returns many probabilities but the so-called «naive» hypothesis of 
 independence of the explanatory variables is never respected in practice (2 variables are also 
 redundant in the simulated data). The transposed sigmoid translates the over-confidence of the algorithm 
 in its predictions. For individuals predicted at 0.8, only 50% actually belong to class 1.
+
 - **The Random Forest** shows a histogram with probability peaks at 0.2 and 0.8, while probabilities close to 
 0 or 1 are very rare. Indeed, the fact of averaging predictions of decision trees between 0 and 1 prevents 
 finding extreme values ​​(it would be necessary for all weak classifiers to agree on extreme values, which 
 is very rare because of the bagging which creates noise). As a result, there is a sigmoid indicating that 
 the classifier could trust his intuition more and bring the probabilities closer to 0 and 1.
+
 - **The Support Vector Machine** does not have a *predict_proba* method but a 
 [*decision_function*](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC.decision_function) 
 method which returns the distance to the separating hyperplane (i.e. decision boundary) as a confidence indication. 
@@ -109,10 +118,13 @@ This second figure is similar to the first with other algorithms, the separation
 not compute a probability. It is the mean of the nearest classes weighted by the inverse of the distance. 
 For example, if $k=15$, twelve closest neighbors are 1 and three are 0, all being equidistant, then the 
 probability of belonging to class 1 would be $\dfrac{12}{15}=0.8$.
+
 - **The LightGBM** algorithm is a [boosting](https://en.wikipedia.org/wiki/Boosting_(machine_learning)) method. 
 The probabilities aren’t bad due to the optimization of the [logloss](https://en.wikipedia.org/wiki/Cross_entropy).
+
 - **The perceptron** is fairly well calibrated because it is made up of a single layer of 100 neurons. Thus, 
 the learned function is linear. In addition, the output activation is a sigmoid, which approximates many probabilities.
+
 - **The Keras** neural network is made up of 2 layers, the architecture is more complex, the function 
 is no longer linear. For several years now, the performance of networks has exploded, as has the 
 complexity of their architectures. The techniques used to avoid the problems of 
@@ -128,10 +140,14 @@ distribution and generate very poorly calibrated probabilities.
 # Isotonic regression
 
 An existing technique, the isotonic regression initially proposed in [4], is based on the following principle:
+
 - Train a classification model
+
 - Plot the calibration curve
+
 - If the probabilities are not calibrated, train an isotonic regression with input $X$: the probabilities 
 predicted by the classifier and with target $y$ the associated real targets
+
 - Compute the calibrated probabilities by composing the isotonic regression and the 
 model: $p=IsotonicRegression(model(X))$
 
@@ -183,23 +199,36 @@ one for the classifier and one for the isotonic regression.
 # Conclusion
 
 **Takeway:**
+
 - Estimating uncertainty is possible in classification: you should first check the quality of 
 the probabilities and then calibrate them if necessary.
+
 - The calibration matches the output of *predict_proba* method with the physical intuition that we 
 have of a probability, which allows us to adjust the actions to be taken according to the business case.
+
 - Models that do not optimize logloss or unbalanced data problems often give poorly calibrated probabilities.
+
 - For two models with equivalent score, we will prefer the one that has higher self-confidence when 
 the probabilities are calibrated (i.e. the probabilities are close to 0 and 1).
 
 **To go further:**
+
 - For multiclass classification, a possible approach is to consider the problem as several binary classifications.
+
 - Other methods exist:
+
     - Parametric algorithms (useful when too little data is available for non-parametric methods)
+
         1. Fit a sigmoid for under-confident classifier (e.g. SVM)
+
         2. Beta calibration for over-confident classifier (e.g. Naïve Bayes)
+
     - Non-parametric algorithms
+
         1. An algorithm based on cubic splines which manages the multiclass case and can be smoother in the calibration compared to the isotonic regression which returns pieces of constant functions [6].
+
         2. The Bayesian Binning [7] which tries to solve the problem of the possible non-monotony of the calibration curve.
+
 - Finally, [bayesian learning](http://bayesiandeeplearning.org/), a popular subject, tackles neural networks and 
 offers a new approach based on the notion of uncertainty. The 
 [TensorFlow Probability](https://www.tensorflow.org/probability) library offers the possibility of learning the 
@@ -208,7 +237,7 @@ parameters of distributions to predict this uncertainty.
 Edit: I found an interesting paper that try to evaluate predictive uncertainty under dataset shift [8]. One 
 conclusion is that improving calibration and accuracy on an in-distribution test set often does not translate 
 to improved calibration on shifted data. I guess I’ll have to write a new article on how to get better uncertainty 
-without calibration ¯\_(ツ)_/¯.
+without calibration ¯\\\_(ツ)_/¯. 
 
 ---
 

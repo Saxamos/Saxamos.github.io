@@ -28,9 +28,13 @@ Once the data has been scrapped, preprocessed and formatted as expected by spaCy
 the example provided [here](https://spacy.io/usage/training#ner).
 
 I made a few changes:
+
 - test the code with fixed seed
+
 - use [click](https://click.palletsprojects.com/en/7.x/) for a beautiful CLI
+
 - add [tqdm](https://github.com/tqdm/tqdm) progress bar to monitor time-consuming tasks
+
 - refacto the code to expose readable public function first
 
 {% highlight python %}
@@ -107,8 +111,11 @@ An interesting part of modeling is the study of errors. It often helps to see wh
 |  4 | False   | matter waves            | probability amplitudes  |
 
 What interests us most is errors (*found = False*). There are 3 errors in the table above:
+
 - Index 4 is a big mistake as there is nothing in common between the prediction and the ground truth.
+
 - Index 3 is close. There is a small artifact "of" that we want to get rid of.
+
 - Index 1 is also close, there is just one extra "s".
 
 Now the question is: does small artifacts really bother the user of our application? It turns out 

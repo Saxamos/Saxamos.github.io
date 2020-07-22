@@ -8,7 +8,7 @@ tags: [Prediction-intervals, Random-forest, Quantile-regression, Uncertainty]
 
 I gave a talk on this topic at the 
 [PyData NYC 2019](https://pydata.org/nyc2019/schedule/presentation/24/quantifying-uncertainty-in-machine-learning-models/).
-The video can be found [here](https://www.youtube.com/watch?v=yk5cmVW3EA0)
+Video can be found [here](https://www.youtube.com/watch?v=yk5cmVW3EA0)
 
 ---
 
@@ -67,10 +67,14 @@ first_tree = rf.estimators_[0]
 *Figure 2: First nodes of the first tree of the forest*
 
 Fig. 2 illustrates the first three nodes of a decision tree:
+
 - **range_ThermalConductivity <= 400** is the node rule associated with one variable.
+
 - **mse** is the value of the error, we see that it decreases as we go deeper in the tree.
+
 - **samples** is the number of observations passing through the node, we can check that 5934 + 3538 gives the number 
 of initial observations 9472.
+
 - **value** is the average of the critical temperatures of the observations in the node 
 (i.e: the prediction for this node).
 
@@ -163,7 +167,9 @@ because its associated p-value is less than 10-8.
 
 Let’s investigate: on fig. 6, high critical temperature prediction seem to have bigger intervals. Uncertainty can 
 have two causes:
+
 - **Aleatory variability**: the natural randomness in a process (e.g. dice roll). This one is irreducible.
+
 - **Epistemic Uncertainty**: the scientific uncertainty in the modeling of the process. It is due to limited 
 data and knowledge. This uncertainty can be reduced by better modeling or by adding relevant data.
 
@@ -178,11 +184,14 @@ It is therefore not surprising that the model is more confident in the region of
 
 **How can this information help from a business point of view? I can see at least 3 reasons besides the 
 fact that the information is inherent in the model (therefore free).**
+
 1. In a use case where the action to be taken is delicate (medicine, fraud, etc.), we will appreciate 
 the measure of the uncertainty (no action if the prediction interval is too large - high risk).
+
 2. As previously described, it provides rich information on the data used for training. A large prediction 
 interval can indicate that few training samples are close to this region. It may make 
 sense - if possible - to fetch more measure in these areas.
+
 3. A very large interval may point out an outlier in the training data or an anomaly in the test data.
 
 
@@ -248,13 +257,18 @@ intervals contains the true value.
 # Conclusion
 
 **Takeway:**
+
 - A Random Forest delivers more information than one think
+
 - These are: quantify uncertainty, detect the region of additional measurements to make, find anomalies
+
 - Be sure not to build prediction intervals with too few trees (one need at least 100 points to describe the distribution)
 
 **To go further:**
+
 - In classification, a probability is already an indicator of confidence (however, few algorithms deliver 
 true probabilities, it is often necessary to calibrate them - this is the topic of the next article)
+
 - A technique that can work regardless of the model to find prediction intervals is the use of quantile 
 loss to predict the conditional quantile $\alpha$ (two models need to be be trained - upper and lower 
 percentile - to build the interval):
