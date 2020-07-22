@@ -1,37 +1,73 @@
 title: Saxamos
-description:
-  Personnal blog of Samuel, Data & Computer Science enthusiast (Machine Learning and Uncertainty), also Saxophonist.
-permalink: ':title/'
-baseurl: ""
-url: "https://saxamos.github.io/"
-site-twitter: Sasamos
+logo:  # you can add own logo.
+description: Personnal blog of Samuel, Data & Computer Science enthusiast (Machine Learning and Uncertainty),
+  also Saxophonist.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://saxamos.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
+
 
 # Author Settings
-author: Samuel Rochette
-author-img: sam.png
-about-author: I am a data scientist focused on modeling and uncertainty ¯\_(ツ)_/¯‍
-social-twitter: Sasamos
-social-facebook: srochette
-social-github: Saxamos
-social-linkedin: samuelrochette/?locale=en_US
-social-email: samuel.rochette06@gmail.com
+author:
+  name: Samuel Rochette
+  image: '/assets/img/sam.png'
+  job: Independent Data Scientist
+  bio: I am a data scientist focused on modeling and uncertainty ¯\_(ツ)_/¯‍
+  email: samuel.rochette06@gmail.com
 
-# Disqus
-discus-identifier: mr-brown # add your discus identifier
 
-# Tracker
-analytics: # Google Analytics
+# Contact links
+contact:
+  - name: Twitter
+    link: https://twitter.com/Sasamos
+  - name: Facebook
+    link: https://facebook.com/srochette
+  - name: Instagram
+    link: https://instagram.com/sasamos
+  - name: Github
+    link: https://github.com/Saxamos
+  - name: linkedin
+    link: https://www.linkedin.com/in/samuelrochette/?locale=en_US
 
-# Build Settings
+
+# Comment Section (Disqus)
+disqus-identifier: samuel_rochette # add your shortname for Disqus Comment. For example mr-brown
+
+
+# Google Analytics
+google-analytics: UA-164062586-1 # add your identifier. For example UA-99631805-1.
+
+
+# Build settings
 markdown: kramdown
+permalink: pretty
 plugins:
-  - jekyll-paginate
   - jekyll-sitemap
-  - jekyll-seo-tag
-  - jekyll-feed
-  - jemoji
+  - jekyll/tagging
 
-paginate: 8
-paginate_path: "/page/:num"
 
-exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
+# Pages Path
+defaults:
+  - scope:
+      path: '_pages'
+    values:
+      permalink: /:basename:output_ext
+
+include:
+  - _pages
+
+
+# Tags
+tag_page_dir:         tag
+tag_page_layout:      tag-page
+tag_permalink_style:  pretty
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+
+# Exclude from processing.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor

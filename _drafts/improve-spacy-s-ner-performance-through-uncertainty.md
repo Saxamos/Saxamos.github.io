@@ -1,10 +1,9 @@
 ---
 layout: post
-title: Improve spaCy's NER performance through uncertainty
-date: 2020-05-08
-description: Focus on confidence to improve performance of a NLP model
-img: 2020-05-08/model_confidence.png
-tags: [Uncertainty, NER, spaCy, Probability]
+title:  Improve spaCy's NER performance through uncertainty
+date:   2020-05-08
+image:  /assets/img/2020-05-08/model_confidence.png
+tags:   [Uncertainty, NER, spaCy, Probability]
 ---
 
 I have been trying to fetch information from text documents. In some case the use of regex was enough to 
