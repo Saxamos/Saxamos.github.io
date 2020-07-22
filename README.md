@@ -20,11 +20,12 @@ To deploy simply push on master branch.
 
 ### Work to be done
 
+* Check contact in config yaml (insta & al.)
+* Review article with new theme
 * Resume (_pages/about.md)
 * Disqus (fix problem)
 * Google Analytics (check it works)
-* contact in config yaml (insta & al.)
-* multilingual
+* Multilingual
 
 ### License
 
