@@ -43,6 +43,7 @@ permalink: pretty
 plugins:
   - jekyll-sitemap
   - jekyll/tagging
+  - jekyll-seo-tag
 
 
 # Pages Path

@@ -21,11 +21,9 @@ To deploy simply push on master branch.
 ### Work to be done
 
 * Resume (_pages/about.md)
-* Disqus
-* Google Analytics
-* icon
-* previous plugins: (jekyll-seo-tag,jekyll-feed,jemoji)
-* contact in config yaml (insta et autre???)
+* Disqus (fix problem)
+* Google Analytics (check it works)
+* contact in config yaml (insta & al.)
 * multilingual
 
 ### License
