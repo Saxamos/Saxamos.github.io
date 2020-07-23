@@ -20,7 +20,6 @@ To deploy simply push on master branch.
 
 ### Work to be done
 
-* Disqus (fix problem)
 * Multilingual
 * Google Analytics (check it works)
 * Resume _pages/about.md ?
