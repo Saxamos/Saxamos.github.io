@@ -20,7 +20,8 @@ To deploy simply push on master branch.
 
 ### Work to be done
 
-* Multilingual
+* Write article
+* Multilingual log
 * Google Analytics (check it works)
 * Resume _pages/about.md ?
 
