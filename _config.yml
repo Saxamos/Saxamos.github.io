@@ -9,7 +9,7 @@ url: "https://saxamos.github.io/" # the base hostname & protocol for your site, 
 # Author Settings
 author:
   name: Samuel Rochette
-  image: '/assets/img/sam.png'
+  image: "/assets/img/sam.png"
   job: ⚜️ Data Scientist ⚜️
   bio: I am a data scientist focused on modeling and uncertainty ¯\_(ツ)_/¯‍
   email: samuel.rochette06@gmail.com
@@ -29,12 +29,8 @@ contact:
     link: https://www.linkedin.com/in/samuelrochette/?locale=en_US
 
 
-# Comment Section (Disqus)
-disqus-identifier: samuel_rochette # add your shortname for Disqus Comment. For example mr-brown
-
-
-# Google Analytics
-google-analytics: UA-164062586-1 # add your identifier. For example UA-99631805-1.
+disqus-identifier: samuel_rochette
+google-analytics: UA-164062586-1
 
 
 # Build settings
@@ -42,14 +38,14 @@ markdown: kramdown
 permalink: pretty
 plugins:
   - jekyll-sitemap
-  - jekyll/tagging
+  - jekyll-tagging
   - jekyll-seo-tag
 
 
 # Pages Path
 defaults:
   - scope:
-      path: '_pages'
+      path: "_pages"
     values:
       permalink: /:basename:output_ext
 

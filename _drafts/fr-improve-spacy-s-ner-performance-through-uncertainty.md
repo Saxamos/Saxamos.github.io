@@ -247,6 +247,7 @@ Si l'on récapitule, ...calcul...
 (accuracy_confident * proportion_confident) + (accuracy_no_confident + accuracy_second_choice_no_confident * proportion_no_confidence_with_error) * proportion_no_confident
 Aucun moyen de savoir, mais rien ne nous empeche de proposer les 2 !!
 
+
 "predict less but carefully" (vincent warmerdam)
 
 
