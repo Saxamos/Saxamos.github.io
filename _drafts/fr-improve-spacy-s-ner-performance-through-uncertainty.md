@@ -10,9 +10,9 @@ Dans cet article, nous allons voir comment la recherche d'incertitude d'un modè
 la précision de manière substantielle et d'augmenter la satisfaction de l'utilisateur final face à un système 
 d'apprentissage supervisé.
 
-Les sujets seront détaillés dans l'ordre suivant : contexte et première solution retenue, choix du modèle NER 
-et astuces, quantification d'incertitude pour améliorer les résultats. Les données présentées ne sont pas celles 
-du projet pour des raisons de confidentialité.
+Les sujets seront détaillés dans l'ordre suivant : contexte et première solution retenue, choix du modèle NER, 
+analyse des erreurs et enfin quantification d'incertitude pour améliorer les résultats. Les données présentées 
+ne sont pas celles du projet pour des raisons de confidentialité.
 
 
 # Introduction
@@ -61,10 +61,10 @@ pdf_file.close()
 ```
 
 ![]({{site.baseurl}}/assets/img/2020-05-08/app_empty.png)
-*Figure 1 : le rendu applicatif avec streamlit*
+*Figure 1 : Rendu applicatif avec streamlit*
 
 ![]({{site.baseurl}}/assets/img/2020-05-08/app_uploaded.png)
-*Figure 2 : l'aperçu du PDF et des prédictions*
+*Figure 2 : Aperçu du PDF et des prédictions*
 
 En plus de rendre la tâche très aisée, la communauté streamlit est active comme le montre la résolution 
 du [problème rencontré](https://github.com/streamlit/streamlit/issues/1088) pour afficher le PDF.
@@ -149,72 +149,55 @@ Le premier entraînement de référence a donné 67%. Après avoir coupé les te
 72%. Enfin, le rééquilibrage fait gagné 4 points de plus pour arriver à 76% de bonnes réponses.
 
 
-# Quantifier l'incertitude
+# Analyse des erreurs
 
-An interesting part of modeling is the study of errors. It often helps to see where our model is wrong. 
+Une étape cruciale en statistique inférentielle est l'étude des erreurs. Cette analyse possède une double vertu : 
+mieux comprendre le modèle et se concentrer sur ses faiblesses pour l'améliorer. Examinons donc les PDF dont le 
+titre n'a pas été trouvé pour tenter d'investiguer les causes de ces bévues.
 
+![]({{site.baseurl}}/assets/img/2020-05-08/error_analysis.png)
+*Figure 3 : Analyse des erreurs*
 
+On souhaite se concentrer sur les erreurs, c'est-à-dire lorsque la colonne `found` est à `False`. Il y a 3 erreurs 
+dans la table ci-dessus :
 
+- Indice 4 : rien en commun entre la prédiction et la valeur réelle
 
+- Indice 3 : erreur plus subtile, le mot "of" est en trop
 
+- Indice 1 : encore plus proche, il y a un "s" en trop
 
+D'un point de vue métier cela importe peu l'utilisateur lorsque l'erreur est petite. On peu donc construire une 
+distance qui permet d'être plus flexible sur l'acceptation de la prédiction. La fonction ci-après vérifie que la 
+valeur prédite n'est pas vide, puis accepte le résultat en cas d'inclusion ou de [distance de 
+Levenshtein](https://fr.wikipedia.org/wiki/Distance_de_Levenshtein) inférieur à 5.
 
-    A retenir:
-    
-    - start simple (regex)
-    
-    
-    A améliorer : 
-    - Search minimal number of annotation that gives good results (several training with different training database size)
-    - (Improve NER model by blending with another model (e.g. huggingface or allennlp) when confidence is low)
-    - Weight pdf with error
+```python
+from Levenshtein._levenshtein import distance
 
-
-
-
-|    | found   | ground truth            | prediction              |
-|---:|:--------|:------------------------|:------------------------|
-|  0 | True    | atomic ionization       | atomic ionization       |
-|  1 | False   | kinetics of germination | kinetics of germinations|
-|  2 | True    | infrared image synthesis| infrared image synthesis|
-|  3 | False   | quantum brakes          | quantum brakes of       |
-|  4 | False   | matter waves            | probability amplitudes  |
-
-What interests us most is errors (*found = False*). There are 3 errors in the table above:
-
-- Index 4 is a big mistake as there is nothing in common between the prediction and the ground truth.
-
-- Index 3 is close. There is a small artifact "of" that we want to get rid of.
-
-- Index 1 is also close, there is just one extra "s".
-
-Now the question is: does small artifacts really bother the user of our application? It turns out 
-that no, those aren't critical for the use case. Hence the use of a more flexible metric is possible. We now 
-calculate our accuracy with inclusion and levenshtein distance. Only index 4 remains wrong in the previous 
-example. Below is the code that compute the *found* columns according to the new metric. 
-
-{% highlight python %}
 def flexible_accuracy(x):
     pred, gt = x['prediction'], x['ground truth']
-    return True if distance(pred, gt) < 5 and (gt in pred or pred in gt) and pred else False
+    return True if pred and distance(pred, gt) < 5 and (gt in pred or pred in gt) else False
 
 df.apply(flexible_accuracy, axis=1).mean()
-{% endhighlight %}
+```
 
-The flexible accuracy is now equal to 82%.
+Sans n'avoir rien changé au modèle, nous passons à un pourcentage de 82% pour nos utilisateurs. Il reste du chemin 
+à parcourir mais quelques points ont été gagné sans effort.
 
 
-# Uncertainty insights
+# Quantifier l'incertitude
 
-One thing that is not straightforward with spaCy is how to get probabilities. The library is indeed designed 
-in a pragmatic way (fast and easy to use), that is why things seems a bit obscure when you want to deep dive. 
-However, one can find related topics through 
-[stackoverflow](https://stackoverflow.com/questions/46934523/spacy-ner-probability) or 
-[github](https://github.com/explosion/spaCy/issues/881). Answers on these sites helped me get the probability 
-of the predictions instead of a start index, end index and a label. Based on that I have added the following 
-function to my validation module.
+A cette étape du projet les choses sont devenues moins évidentes. J'effectue volontairement un biais de publication 
+en passant outre les essais non ou moins fructueux parmi lesquels on trouve le travail sur les données et les 
+réentrainements en changeant les hyperparamètres.
 
-{% highlight python %}
+Dans la continuité de la partie précédente et pour mieux comprendre les résultats du modèle, j'ai souhaité 
+quantifier l'incertitude du modèle. La facilité d'utilisation de la librairie à un coût, on le découvre 
+lorsqu'on cherche à accéder aux probabilités. Encore une fois le partage de connaissance au sein de la 
+communauté permet de trouver des [élements de réponse](https://github.com/explosion/spaCy/issues/881) :
+
+```python
 def _predict_proba(text_data, nlp_model):
     proba_dict = defaultdict(list)
     for text in text_data:
@@ -225,67 +208,57 @@ def _predict_proba(text_data, nlp_model):
                 for start, end, label in ents:
                     proba_dict[doc[start:end].text].append(round(score, 3))
     return dict(proba_dict)
-{% endhighlight %}
-
-It retrieves the confidence score (between 0 and 1) for each part of my text seen as the name 
-of the document (i.e. our unique label) and returns the following format:
-
-```json
-{"The real title": [1.0, 0.946, 1.0, 0.3], 
- "Another semblance of title": [0.123, 0.356, 0.65], 
- "something else": [0.006],
- "yet another error": [0.981]}
 ```
 
-An easy trick to make this response more readble is to sum the probabilities:
+Cette fonction retourne un score de confiance compris entre 0 et 1 pour chaque groupe de mot identifié comme étant 
+un titre.
 
 ```json
-{"The real title": 3.246,
- "Another semblance of title": 1.129,
- "something else": 0.006,
- "yet another error": 0.981}
+{"le vrai titre du document": [1.0, 0.946, 1.0, 0.3], 
+ "une appareance de titre": [0.123, 0.356, 0.65], 
+ "des mots quelconques": [0.006],
+ "autre chose": [0.981]}
 ```
 
-Let's sort it and divide it by the sum of the values in order to be able to compare confidence value for each documents 
-(confidence value lies between 0 and 1). 
+Pour plus de clarté on agrège en sommant les confiances et on normalise en divisant par la somme totale et 
+on les trie par ordre décroissant. La normalisation permet de comparer les confiances agrégées entre les documents.
 
 ```json
-{"The real title": 0.605,
- "Another semblance of title": 0.211,
- "yet another error": 0.183,
- "something else": 0.001}
+{"le vrai titre du document": 0.605,
+ "une appareance de titre": 0.211,
+ "autre chose": 0.183,
+ "des mots quelconques": 0.001}
 ```
 
-We observe that the field "yet another error" that have been found only once with high confidence is now considered 
-as low confidence prediction. On the contrary "The real title" that have been found several times with high confidence 
-keep a high confidence after this transformation.
-
-We consider that the first field with greatest confidence is our prediction. We now plot the histogram of right 
-and wrong predictions according to the confidence value that we just computed.
+On considère naturellement le groupe de mot avec la plus grande confiance comme étant la prédiction. Traçons la 
+densité de bonnes et mauvaises prédictions en fonction de l'incertitude'. 
 
 ![]({{site.baseurl}}/assets/img/2020-05-08/model_confidence.png)
-*Figure 1: Density of right and wrong predictions according to confidence*
+*Figure 4: Densité de predictions en fonction de l'incertitude*
 
-This figure shows that the more confident the model, the better the chances that the prediction will be correct. 
-When the confidence is greater than $$0.4$$, the accuracy is 99%. 
+Ce tracé montre que l'incertitude est moindre lorsque les prédictions sont correctes. En particulier, pour 
+une confiance supérieure à $$.4$$, la précision est de 99%. Voila peut-être un moyen d'augmenter notre 
+performance. On se concentre maintenant sur les confiances inférieures à $$.4$$. Dans ce cas la précision 
+tombe à 72%. Une analyse minutieuse de ces faibles confiances fait apparaître un motif : la seconde plus 
+grande confiance est souvent la bonne réponse lorsqu'il y a erreur. Cela est vrai dans 55% des cas. Ainsi 55% des 
+28% d'erreurs contiennent la bonne réponse en seconde prédiction.
 
-To enhance the model, we want to focus on the errors. Let's take a closer look at the prediction with confidence 
-smaller than $$0.4$$.
-
-When we focus on the low confidence prediction, it is obvious
-
-
-
+Si l'on récapitule, ...calcul...
+(accuracy_confident * proportion_confident) + (accuracy_no_confident + accuracy_second_choice_no_confident * proportion_no_confidence_with_error) * proportion_no_confident
+Aucun moyen de savoir, mais rien ne nous empeche de proposer les 2 !!
 
 "predict less but carefully" (vincent warmerdam)
-me achieve gap.
-How to ??? The strategy will be...
-
-Conclusion:
-- spacy top
-- dure de trouver proba
-- worthhhh it
 
 
-Fake data because... for privacy reasons
  
+CCL
+
+    A retenir:
+    
+    - start simple (regex)
+    
+    
+    A améliorer : 
+    - Search minimal number of annotation that gives good results (several training with different training database size)
+    - (Improve NER model by blending with another model (e.g. huggingface or allennlp) when confidence is low)
+    - Weight pdf with error
