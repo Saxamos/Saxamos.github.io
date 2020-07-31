@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  Améliorer les performances de spaCy NER grâce à la mesure d'incertitude
-date:   2020-XX-XX
-image:  /assets/img/2020-XX-XX/model_confidence.png
+date:   2020-07-31
+image:  /assets/img/2020-07-31/model_confidence.png
 tags:   [Incertitude, NER, spaCy, Probabilité]
 ---
 
@@ -62,10 +62,10 @@ show_file.info(f"""Titre : {predictions['title']}
 pdf_file.close()
 ```
 
-![]({{site.baseurl}}/assets/img/2020-XX-XX/app_empty.png)
+![]({{site.baseurl}}/assets/img/2020-07-31/app_empty.png)
 *Figure 1 : Rendu applicatif avec streamlit*
 
-![]({{site.baseurl}}/assets/img/2020-XX-XX/app_uploaded.png)
+![]({{site.baseurl}}/assets/img/2020-07-31/app_uploaded.png)
 *Figure 2 : Aperçu du PDF et des prédictions*
 
 En plus de rendre la tâche aisée, la communauté streamlit est active comme l'illustre la résolution 
@@ -151,7 +151,7 @@ Une étape cruciale en statistique inférentielle est l'étude des erreurs. Cett
 mieux comprendre le modèle et se concentrer sur ses faiblesses pour l'améliorer. Examinons donc les PDFs dont le 
 titre n'a pas été trouvé pour tenter d'investiguer les causes de ces bévues.
 
-![]({{site.baseurl}}/assets/img/2020-XX-XX/error_analysis.png)
+![]({{site.baseurl}}/assets/img/2020-07-31/error_analysis.png)
 *Figure 3 : Analyse des erreurs*
 
 On souhaite se concentrer sur les erreurs, c'est-à-dire lorsque la colonne `found` est à `False`. Il y a 3 erreurs 
@@ -229,7 +229,7 @@ on trie par ordre décroissant. La normalisation permet de comparer les confianc
 On considère naturellement le groupe de mot avec la plus grande confiance comme étant la meilleure 
 prédiction. Traçons la densité de bonnes et mauvaises prédictions en fonction de l'incertitude.
 
-![]({{site.baseurl}}/assets/img/2020-XX-XX/model_confidence.png)
+![]({{site.baseurl}}/assets/img/2020-07-31/model_confidence.png)
 *Figure 4 : Densité de prédictions en fonction de l'incertitude*
 
 Ce tracé montre que l'incertitude est moindre lorsque les prédictions sont correctes. En particulier, pour 
@@ -240,7 +240,7 @@ un motif : dans les 28% d'erreurs, la valeur avec la seconde plus grande confian
 réponse. Cela est vrai dans 62% des cas. En d'autres termes, 62% des 28% d'erreurs contiennent la bonne réponse 
 en seconde prédiction.
 
-![]({{site.baseurl}}/assets/img/2020-XX-XX/tree.png)
+![]({{site.baseurl}}/assets/img/2020-07-31/tree.png)
 *Figure 5 : Récapitulatif sous forme d'arbre*
 
 Il n'y a pas d'injonction à l'utilisation de la réponse pure de notre modèle. Le meilleur algorithme est celui 
