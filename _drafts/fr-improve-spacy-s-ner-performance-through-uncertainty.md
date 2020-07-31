@@ -234,21 +234,32 @@ On considère naturellement le groupe de mot avec la plus grande confiance comme
 densité de bonnes et mauvaises prédictions en fonction de l'incertitude'. 
 
 ![]({{site.baseurl}}/assets/img/2020-05-08/model_confidence.png)
-*Figure 4: Densité de predictions en fonction de l'incertitude*
+*Figure 4 : Densité de predictions en fonction de l'incertitude*
 
 Ce tracé montre que l'incertitude est moindre lorsque les prédictions sont correctes. En particulier, pour 
 une confiance supérieure à $$.4$$, la précision est de 99%. Voila peut-être un moyen d'augmenter notre 
-performance. On se concentre maintenant sur les confiances inférieures à $$.4$$. Dans ce cas la précision 
-tombe à 72%. Une analyse minutieuse de ces faibles confiances fait apparaître un motif : la seconde plus 
-grande confiance est souvent la bonne réponse lorsqu'il y a erreur. Cela est vrai dans 55% des cas. Ainsi 55% des 
-28% d'erreurs contiennent la bonne réponse en seconde prédiction.
+performance : concentrons nous sur les confiances inférieures à $$.4$$. En dessous de ce seuil, la précision 
+tombe à 72%. Une analyse minutieuse de ces faibles confiances fait apparaître un motif : la valeur avec la seconde plus 
+grande confiance est souvent la bonne réponse lorsqu'il y a une erreur. Cela est vrai dans 55% des cas. En 
+d'autres termes, 55% des 28% d'erreurs contiennent la bonne réponse en seconde prédiction.
 
-Si l'on récapitule, ...calcul...
+![]({{site.baseurl}}/assets/img/2020-05-08/tree.png)
+*Figure 5 : Récapitulatif sous forme d'arbre*
+
+Il n'y a pas d'injonction à l'utilisation de la réponse pure de notre modèle. Le meilleur algorithme est celui 
+qui est le mieux aligné avec le besoin utilisateur. Il s'avère ici que l'utilisateur privilégie la précision. 
+On propose donc un algorithme basé sur la fig. 5 qui renvoie la prédiction lorsque la confiance est supérieur au seuil, 
+sinon il renvoie les deux prédictions avec la plus grande confiance.
+
+On peut calculer la précision avec laquelle l'utilisateur verra s'afficher la bonne réponse parmi celles 
+proposées. ...calcul...
 (accuracy_confident * proportion_confident) + (accuracy_no_confident + accuracy_second_choice_no_confident * proportion_no_confidence_with_error) * proportion_no_confident
 Aucun moyen de savoir, mais rien ne nous empeche de proposer les 2 !!
 
 
 "predict less but carefully" (vincent warmerdam)
+
+
 
 
  
