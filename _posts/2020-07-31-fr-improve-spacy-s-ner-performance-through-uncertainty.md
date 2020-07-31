@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Améliorer les performances de spaCy NER grâce à la mesure d'incertitude
+title:  Quantifier l'incertitude pour améliorer les performances de spaCy NER
 date:   2020-07-31
 image:  /assets/img/2020-07-31/model_confidence.png
 tags:   [Incertitude, NER, spaCy, Probabilité]

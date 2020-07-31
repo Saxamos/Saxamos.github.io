@@ -20,9 +20,9 @@ To deploy simply push on master branch.
 
 ### Work to be done
 
-* Write article
-* Multilingual blog (just articles) (https://www.sylvaindurand.org/making-jekyll-multilingual/)
 * Google Analytics (check it works)
+* Multilingual blog (just articles) (https://www.sylvaindurand.org/making-jekyll-multilingual/)
+* Write article
 * Resume _pages/about.md ?
 
 ### License

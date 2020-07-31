@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  Improve spaCy's NER performance through uncertainty
-date:   2020-05-08
-image:  /assets/img/2020-05-08/model_confidence.png
+date:   2020-XX-XX
+image:  /assets/img/2020-XX-XX/model_confidence.png
 tags:   [Uncertainty, NER, spaCy, Probability]
 ---
 
@@ -193,7 +193,7 @@ keep a high confidence after this transformation.
 We consider that the first field with greatest confidence is our prediction. We now plot the histogram of right 
 and wrong predictions according to the confidence value that we just computed.
 
-![]({{site.baseurl}}/assets/img/2020-05-08/model_confidence.png)
+![]({{site.baseurl}}/assets/img/2020-XX-XX/model_confidence.png)
 *Figure 1: Density of right and wrong predictions according to confidence*
 
 This figure shows that the more confident the model, the better the chances that the prediction will be correct. 
