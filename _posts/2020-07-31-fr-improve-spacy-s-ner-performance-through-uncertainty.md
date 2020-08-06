@@ -10,7 +10,8 @@ Dans cet article, nous allons voir comment la recherche d'incertitude d'un modè
 la précision de manière substantielle ainsi que la satisfaction de l'utilisateur final face à un système 
 d'apprentissage supervisé.
 
-Les sujets seront détaillés dans l'ordre suivant : contexte et première solution retenue, choix du modèle NER, 
+Les sujets seront détaillés dans l'ordre suivant : contexte et première solution retenue, choix du modèle 
+[NER](https://fr.wikipedia.org/wiki/Reconnaissance_d%27entit%C3%A9s_nomm%C3%A9es) (Reconnaissance d'Entités Nommées), 
 analyse des erreurs et enfin quantification d'incertitude pour améliorer les résultats. Les données présentées 
 ne sont pas celles du projet pour des raisons de confidentialité.
 
@@ -82,7 +83,7 @@ Certains champs à extraire présentent une plus grande complexité. Une simple 
 trouver de motif réccurent. Ils ne se trouvent ni à une place définie dans le texte ni n'ont de structure 
 particulière. Quelques recherches sur internet nous guident rapidement vers les modèles de reconnaissance d'entités 
 nommées [NER](https://fr.wikipedia.org/wiki/Reconnaissance_d%27entit%C3%A9s_nomm%C3%A9es) qui permettent grâce à 
-de l'apprentissage supervisé d'associer des mots à des étiquettes.
+l'apprentissage supervisé d'associer des mots à des étiquettes.
 
 Plusieurs librairies implémentent des surcouches facilitant la prise en main des modèles pour l'entraînement et 
 l'inférence. J'ai opté pour [spaCy](https://spacy.io/usage/linguistic-features#named-entities) qui met en avant 
@@ -91,9 +92,11 @@ détails quant au fonctionnement du modèle, il convient de se référer à la d
 [cette vidéo](https://spacy.io/universe/project/video-spacys-ner-model). 
 
 Le dataset contient 3,000 documents partiellement annotés. Partiellement signifie ici que tous les champs cherchés ne 
-sont pas annotés, en revanche lorsqu'un champ est annoté, il l'est sur la totalité du dataset. Comme stratégie 
-de validation croisée j'ai retenue un découpage avec 2,100 documents pour l'entraînement et 900 pour la validation. 
-La précision recherchée est de l'ordre de 95% pour chaque champ.
+sont pas annotés, en revanche lorsqu'un champ est annoté, il l'est sur la totalité du dataset. L'annotation a 
+été effectuée de façon automatique en parcourant le code HTML de pages web ([scrapping](
+https://fr.wikipedia.org/wiki/Web_scraping)). Comme stratégie de validation croisée j'ai retenue un découpage 
+avec 2,100 documents pour l'entraînement et 900 pour la validation. La précision recherchée est de l'ordre 
+de 95% pour chaque champ.
 
 Ci-après se trouve un exemple du format d'entrée attendu :
 ```python
@@ -142,7 +145,7 @@ notre prédiction sera un vote de majorité par document. Si le modèle prédit 
 titres, la prédiction finale sera "a". On rappelle que l'objectif est d'atteindre 95% de bonnes réponses.
 
 Le premier entraînement de référence a donné 67%. Après avoir coupé les textes en morceaux, l'algorithme atteint 
-72%. Enfin, le rééquilibrage fait gagné 4 points de plus pour arriver à 76% de bonnes réponses.
+72%. Enfin, le rééquilibrage fait gagner 4 points de plus pour arriver à 76% de bonnes réponses.
 
 
 # Analyse des erreurs
@@ -166,10 +169,10 @@ dans la table ci-dessus :
 D'un point de vue métier cela importe peu l'utilisateur lorsque l'erreur est petite. On peu donc construire une 
 distance qui permet d'être plus flexible sur l'acceptation de la prédiction. La fonction ci-après vérifie que la 
 valeur prédite n'est pas vide, puis accepte le résultat en cas d'inclusion ou si la [distance de 
-Levenshtein](https://fr.wikipedia.org/wiki/Distance_de_Levenshtein) est inférieure à 5.
+Levenshtein](https://fr.wikipedia.org/wiki/Distance_de_Levenshtein) est inférieure à 5 (valeur arbitrairement choisie).
 
 ```python
-from Levenshtein._levenshtein import distance
+from Levenshtein import distance
 
 def flexible_accuracy(x):
     pred, gt = x['prediction'], x['ground truth']
@@ -184,12 +187,12 @@ Sans n'avoir rien changé au modèle, nous passons à une précision de 82% pour
 
 # Quantifier l'incertitude
 
-A ce niveau du projet, les abonnissements sont moins évidents. J'effectue volontairement un biais de publication 
-en ne mentionnant pas les essais non ou moins fructueux parmi lesquels on trouve le travail sur les données et les 
+A ce niveau du projet, les abonnissements sont moins évidents. Pour la concision de l'article, je ne vais pas 
+m'attarder sur les essais non ou moins fructueux, parmi lesquels on trouve le travail sur les données et les 
 réentrainements en modifiant les hyperparamètres.
 
 Dans la continuité de la partie précédente et pour mieux comprendre les résultats du modèle, j'ai souhaité 
-quantifier l'incertitude des prédictions. La facilité d'utilisation de la librairie à un coût, on le découvre 
+quantifier l'incertitude des prédictions. La facilité d'utilisation de la librairie a un coût, on le découvre 
 lorsqu'on cherche à accéder aux probabilités. Néanmoins, le partage de connaissances au sein de la 
 communauté permet à nouveau de trouver des [élements de réponse](https://github.com/explosion/spaCy/issues/881) :
 
@@ -263,7 +266,8 @@ FinalAccuracy &=& 0.39 * Accuracy_{Conf>0.4} + (1-0.39) * Accuracy_{Conf<0.4} \\
 &=& 0.93 \\
 \end{eqnarray}$$
 
-On atteint ainsi 93% de précision.
+On atteint ainsi 93% de précision. Pur plus de rigueur il conviendrait de créer un autre ensemble disjoint 
+de validation et vérifier ces performances.
 
 
 # Conclusion
@@ -280,7 +284,8 @@ utilisateurs. C'est en dévoilant ses imperfections qu'un algorithme peut gagner
 
 **À retenir :**
 
-- Commencer simplement : que peut-on faire sans algorithme d'apprentissage ?
+- Commencer avec un premier modèle simple et une boucle de rétroaction courte : que peut-on faire sans 
+algorithme d'apprentissage ?
 
 - Adapter et assouplir le modèle et la métrique au cas d'usage
 
@@ -296,6 +301,6 @@ utilisateurs. C'est en dévoilant ses imperfections qu'un algorithme peut gagner
 nouveaux champs)
 
 - Essayer d'améliorer les performances en moyennant avec un autre modèle NER ([huggingface](https://huggingface.co/) 
-or [allennlp](https://allennlp.org/)) lorsque la confiance est basse
+or [allennlp](https://allennlp.org/){:target="_blank"}) lorsque la confiance est basse
 
 - Étudier les erreurs du point de vue de la données : problème d'échantillonage pour les incertitudes élevées ?

@@ -40,6 +40,7 @@ plugins:
   - jekyll-sitemap
   - jekyll/tagging
   - jekyll-seo-tag
+  - jekyll-target-blank
 
 
 # Pages Path
