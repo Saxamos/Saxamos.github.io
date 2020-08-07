@@ -31,13 +31,13 @@ After the deployment of this first article I'd like to:
 
 3. Write new articles:
 
-      - Deploy an serve ML model with streamlit
+      - Deploy and serve ML model with streamlit
 
       - Adversarial learning to trick CNN
 
       - Maxentropy for image segmentation
 
-      - Find weights for imbalanced dataset
+      - Find weights for imbalanced dataset in production
 
       - Homography transformation for template matching
 
@@ -45,7 +45,7 @@ After the deployment of this first article I'd like to:
 I am lucky to spend my confined time in the french Alpes, a quiet and beautiful place. Below is a picture taken 
 by my roomate Elie Hamelin of the "Chapelle Notre-Dame du Charmaix", not far from our apartment.
 
-![Where I am]({{site.baseurl}}/assets/img/2020-03-22/confinement.jpg)
+![]({{site.baseurl}}/assets/img/2020-03-22/confinement.jpg)
 
 > Built in the 15th century, on the rock in a narrow gorge. This sanctuary shelters a black virgin, visible and 
 >lit from the outside. It is the most visited pilgrimage site in Maurienne.
