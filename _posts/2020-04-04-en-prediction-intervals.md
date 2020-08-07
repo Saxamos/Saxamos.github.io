@@ -4,7 +4,7 @@ title:  Prediction intervals
 date:   2020-04-04
 image:  /assets/img/2020-04-04/pred_int.png
 tags:   [Prediction-intervals, Random-forest, Quantile-regression, Uncertainty]
-lang:   🇬🇧
+lang:   🇬🇧 Back in english
 ref:    prediction-intervals
 ---
 

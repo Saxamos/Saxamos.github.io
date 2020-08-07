@@ -4,7 +4,7 @@ title:  Calibration de probabilité
 date:   2020-04-18
 image:  /assets/img/2020-04-18/calibration.gif
 tags:   [Calibration-probabilité, Incertitude, Régression-isotonic]
-lang:   🇫🇷
+lang:   🇫🇷 Lire en français
 ref:    probability-calibration
 hide:   true
 ---

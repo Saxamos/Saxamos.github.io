@@ -4,7 +4,7 @@ title:  Probability calibration
 date:   2020-04-18
 image:  /assets/img/2020-04-18/calibration.gif
 tags:   [Probability-calibration, Uncertainty, Isotonic-regression]
-lang:   🇬🇧
+lang:   🇬🇧 Back in english
 ref:    probability-calibration
 ---
 

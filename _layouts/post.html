@@ -8,26 +8,20 @@ layout: default
       <div class="post__date">
         <time datetime="{{ page.date | date_to_xmlschema }}">Published {{page.date | date: '%b %d, %Y'}}</time>
       </div>
+
       {% if page.image %}
         <div class="post-image img-blur" style="background-image: url({{site.baseurl}}{{page.image}})"></div>
       {% endif %}
     </div>
 
-    <ul>
-      {% assign posts=site.posts | where:"ref", page.ref | sort: 'lang' %}
+    <div class="post-lang">
+      {% assign posts=site.posts | where:"ref", page.ref %}
       {% for post in posts %}
-        <li>
+        {% if page.lang != post.lang %}
           <a href="{{ post.url }}" class="{{ post.lang }}">{{ post.lang }}</a>
-        </li>
+        {% endif %}
       {% endfor %}
-
-      {% assign pages=site.pages | where:"ref", page.ref | sort: 'lang' %}
-      {% for page in pages %}
-        <li>
-          <a href="{{ page.url }}" class="{{ page.lang }}">{{ page.lang }}</a>
-        </li>
-      {% endfor %}
-    </ul>
+    </div>
 
     <div class="post__content" data-aos="fade-up" data-aos-easing="ease-out-quad" data-aos-delay="100" data-aos-duration="700">
       {{ content }}

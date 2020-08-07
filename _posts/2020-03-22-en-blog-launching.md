@@ -4,7 +4,7 @@ title:  Blog launching 🚀
 date:   2020-03-22
 image:  /assets/img/2020-03-22/covid19.jpg
 tags:   [Launch, Blog, Covid, Jekyll]
-lang:   🇬🇧
+lang:   🇬🇧 Back in english
 ref:    launch
 ---
 
