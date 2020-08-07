@@ -1,13 +1,15 @@
 ---
 layout: post
-title:  Blog launching during lockdown 🚀
+title:  Blog launching 🚀
 date:   2020-03-22
 image:  /assets/img/2020-03-22/covid19.jpg
 tags:   [Launch, Blog, Covid, Jekyll]
+lang:   🇬🇧
+ref:    launch
 ---
 
 I have finally found the time to launch my personal website 👨‍💻. I now start to feel like I've done something 
-during the confinement (playing the [Bach cello suite](https://www.youtube.com/watch?v=mGQLXRTl3Z0) with a tenor 
+during the lockdown (playing the [Bach cello suite](https://www.youtube.com/watch?v=mGQLXRTl3Z0) with a tenor 
 saxophone 🎷 and losing at️ FIFA 20 ⚽ does not count).
 
 ## To come up on this blog

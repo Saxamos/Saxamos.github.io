@@ -3,7 +3,9 @@ layout: post
 title:  Prediction intervals
 date:   2020-04-04
 image:  /assets/img/2020-04-04/pred_int.png
-tags: [Prediction-intervals, Random-forest, Quantile-regression, Uncertainty]
+tags:   [Prediction-intervals, Random-forest, Quantile-regression, Uncertainty]
+lang:   🇬🇧
+ref:    prediction-intervals
 ---
 
 I gave a talk on this topic at the 
