@@ -27,7 +27,7 @@ motif récurrents assez simple. Cela a permis la création un premier modèle tr
 régulières](https://fr.wikipedia.org/wiki/Expression_r%C3%A9guli%C3%A8re). Le pipeline élémentaire suivant valide 70% 
 des objectifs :
 
-- Convertir le PDF en fichier texte avec pdftotext
+- Convertir le PDF en fichier texte avec *pdftotext*
 
 - Effectuer quelques tâches de nettoyage (caractères spéciaux, lemmatisation)
 
