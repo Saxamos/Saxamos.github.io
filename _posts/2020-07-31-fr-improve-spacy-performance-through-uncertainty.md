@@ -143,7 +143,7 @@ de lancer l'entraînement d'un premier modèle. J'ai effectué quelques modifica
 
 Regardons cette métrique de plus près. Pour qualifier les résultats on se restreint dans un premier temps 
 à un unique champ (par exemple le titre du document). Ce qui intéresse notre utilisateur est l'affichage 
-du champ "titre" peu importe le nombre de fois qu'il apparaît ou sa position dans le PDF (cf. Figure 2). Ainsi, 
+du champ "titre" peu importe le nombre de fois qu'il apparaît ou sa position dans le PDF (cf. Fig 2). Ainsi, 
 notre prédiction sera un vote de majorité par document. Si le modèle prédit "[a, a, b]" comme étant des 
 titres, la prédiction finale sera "a". On rappelle que l'objectif est d'atteindre 95% de bonnes réponses.
 
@@ -269,7 +269,7 @@ FinalAccuracy &=& 0.39 * Accuracy_{Conf>0.4} + (1-0.39) * Accuracy_{Conf<0.4} \\
 &=& 0.93 \\
 \end{eqnarray}$$
 
-On atteint ainsi 93% de précision. Pur plus de rigueur il conviendrait de créer un autre ensemble disjoint 
+On atteint ainsi 93% de précision. Pour plus de rigueur il conviendrait de créer un autre ensemble disjoint 
 de validation et vérifier ces performances.
 
 
@@ -296,7 +296,7 @@ algorithme d'apprentissage ?
 
     1. se concentrer sur les cas les plus incertains
     
-    2. rester humble en informant l'utilisateur lorsque le modèle n'est pas confiant
+    2. informer l'utilisateur lorsque le modèle n'est pas confiant
 
 **Pour aller plus loin :**
 
@@ -304,6 +304,6 @@ algorithme d'apprentissage ?
 nouveaux champs)
 
 - Essayer d'améliorer les performances en moyennant avec un autre modèle NER ([huggingface](https://huggingface.co/) 
-or [allennlp](https://allennlp.org/){:target="_blank"}) lorsque la confiance est basse
+or [allennlp](https://allennlp.org/)) lorsque la confiance est basse
 
 - Étudier les erreurs du point de vue de la données : problème d'échantillonage pour les incertitudes élevées ?

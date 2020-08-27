@@ -200,7 +200,7 @@ one for the classifier and one for the isotonic regression.
 
 # Conclusion
 
-**Takeway:**
+**Key takeaways:**
 
 - Estimating uncertainty is possible in classification: you should first check the quality of 
 the probabilities and then calibrate them if necessary.

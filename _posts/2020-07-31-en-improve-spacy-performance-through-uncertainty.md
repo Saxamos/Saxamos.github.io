@@ -72,12 +72,12 @@ In addition to make the task easy, the streamlit community is active (see the [r
 ](https://github.com/streamlit/streamlit/issues/1088).
 
 The two conclusions of this first part have - for my greatest happiness - become prosaic: at the beginning of
-project, the most naive ideas produce the most value and the open source tools are admirable.
+project, the most value are produced by the most naive ideas and the open source tools are admirable.
 
 
 # The NER model
 
-Some fields to extract are more complex. A simple statistical analysis is not sufficient to find recurring 
+Some fields are more complex to extract. A simple statistical analysis is not sufficient to find recurring 
 patterns. They are neither in a defined place in the text nor have any particular structure. Some internet research 
 quickly lead us to named entity recognition models [NER](https://en.wikipedia.org/wiki/Named-entity_recognition) 
 which allow to associate words with labels thanks to supervised learning.
@@ -85,12 +85,13 @@ which allow to associate words with labels thanks to supervised learning.
 Several libraries implement easy to use wrappers for training and inference. I chose [spaCy
 ](https://spacy.io/usage/linguistic-features#named-entities) which highlights its ergonomics and temporal 
 performances (~2 hours per training on a 16-core CPU). For more details on how the model works, the documentation, 
-especcialy [this video](https://spacy.io/universe/project/video-spacys-ner-model) are useful.
+especially [this video](https://spacy.io/universe/project/video-spacys-ner-model) is useful.
 
-The dataset contains 3,000 partially annotated documents. Partially means here that all the searched fields 
+The dataset contains 3,000 partially annotated documents. Partially means that all the searched fields 
 are not annotated, however when a field is annotated, it is over the entire dataset. The annotation has been 
-done automatically by scrapping the HTML code of web pages. As a cross-validation strategy I chose to split the data 
-as follow: 2,100 documents for the training and 900 for the validation. The required precision is 95% for each field.
+done automatically by scrapping the HTML code of web pages. For the cross-validation strategy the data has been 
+splitted as follow: 2,100 documents for the training and 900 for the validation. The required accuracy is 95% for 
+each field.
 
 The following is an example of the expected input format:
 ```python
@@ -116,7 +117,7 @@ def _balance(data):
     return balanced_data
 ```
 
-The probability $$. 1$$ can be adjusted, the objective being to reach a reasonable proportion of sample
+The probability $$.1$$ can be adjusted, the objective being to reach a reasonable proportion of sample
 with label (50% in our case). The algorithm thus sees many examples without annotation but is not saturated 
 with these.
 
@@ -131,9 +132,9 @@ to start training a first model. I made some preliminary changes to the code:
 
 - create a function to compute our own business metric at each iteration (by default only the *loss* is calculated)
 
-Let's take a closer look at this metric. To qualify the results, we first restrict ourselves to a single 
+Let's take a closer look at this metric. To assess the results, we first restrict ourselves to a single 
 field (for example the title of the document). What interests our user is the field regardless of the number 
-of times it appears or its position in the PDF (see Figure 2). Our prediction will thus be a majority vote 
+of times it appears or its position in the PDF (see Fig. 2). Our prediction will thus be a majority vote 
 per document. If the model predicts "[a, a, b]" to be titles, the final prediction will be "a". Remember that 
 the goal is to achieve 95% correct answers.
 
@@ -141,28 +142,27 @@ The first training yielded a 67% benchmark. After splitting the texts into piece
 72%. Finally, the rebalancing saves 4 more points to reach 76% accuracy.
 
 
-# Analyse des erreurs
+# Error analysis
 
-Une étape cruciale en statistique inférentielle est l'étude des erreurs. Cette analyse possède une double vertu : 
-mieux comprendre le modèle et se concentrer sur ses faiblesses pour l'améliorer. Examinons donc les PDFs dont le 
-titre n'a pas été trouvé pour tenter d'investiguer les causes de ces bévues.
+A crucial step in inferential statistics is the study of errors. This analysis has a double virtue: better 
+understand the model and focus on its weaknesses to improve it. Let's take a look at the PDFs whose
+title has not been found to attempt to investigate the causes of these blunders.
 
 ![]({{site.baseurl}}/assets/img/2020-07-31/error_analysis.png)
-*Figure 3 : Analyse des erreurs*
+*Figure 3: Error analysis*
 
-On souhaite se concentrer sur les erreurs, c'est-à-dire lorsque la colonne `found` est à `False`. Il y a 3 erreurs 
-dans la table ci-dessus :
+We want to focus on errors, i.e. when the `found` column is `False`. There are 3 errors in the table above:
 
-- Indice 4 : rien en commun entre la prédiction et la valeur réelle
+- Index 4: nothing in common between the prediction and the real value
 
-- Indice 3 : erreur plus subtile, le mot "of" est en trop
+- Index 3: more subtle error, the word "of" must not appear
 
-- Indice 1 : encore plus proche, il y a un "s" en trop
+- Index 1: even closer, there is an extra "s"
 
-D'un point de vue métier cela importe peu l'utilisateur lorsque l'erreur est petite. On peu donc construire une 
-distance qui permet d'être plus flexible sur l'acceptation de la prédiction. La fonction ci-après vérifie que la 
-valeur prédite n'est pas vide, puis accepte le résultat en cas d'inclusion ou si la [distance de 
-Levenshtein](https://fr.wikipedia.org/wiki/Distance_de_Levenshtein) est inférieure à 5 (valeur arbitrairement choisie).
+From a business point of view, it does not matter to the user when the error is small. We can therefore build a
+distance which allows to be more flexible on the acceptance of the prediction. The function below checks that the
+predicted value is not empty, then accepts the result if it is included in the ground truth or if the 
+[Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) is less than 5 (arbitrarily chosen value).
 
 ```python
 from Levenshtein import distance
@@ -174,20 +174,19 @@ def flexible_accuracy(x):
 df.apply(flexible_accuracy, axis=1).mean()
 ```
 
-Sans n'avoir rien changé au modèle, nous passons à une précision de 82% pour nos utilisateurs. Il reste du chemin 
-à parcourir mais quelques points ont été gagné sans effort.
+Without having changed anything in the model, we reach an accuracy of 82% for our users. There is still a way
+to go but a few points were won without effort.
 
 
-# Quantifier l'incertitude
+# Quantify uncertainty
 
-A ce niveau du projet, les abonnissements sont moins évidents. Pour la concision de l'article, je ne vais pas 
-m'attarder sur les essais non ou moins fructueux, parmi lesquels on trouve le travail sur les données et les 
-réentrainements en modifiant les hyperparamètres.
+At this level of the project, improvements are less obvious. For the brevity of the article, I will not
+focus on the unsuccessful or less successful trials, among which we find: work on data and re-training 
+with updated hyperparameters.
 
-Dans la continuité de la partie précédente et pour mieux comprendre les résultats du modèle, j'ai souhaité 
-quantifier l'incertitude des prédictions. La facilité d'utilisation de la librairie a un coût, on le découvre 
-lorsqu'on cherche à accéder aux probabilités. Néanmoins, le partage de connaissances au sein de la 
-communauté permet à nouveau de trouver des [élements de réponse](https://github.com/explosion/spaCy/issues/881) :
+To continue on the error analysis, I wanted to quantify the uncertainty of predictions. The ease of use 
+of spaCy has a cost, we discover it when trying to access probabilities. Nevertheless, knowledge sharing 
+within the community again allows to find a [clue](https://github.com/explosion/spaCy/issues/881):
 
 ```python
 def _predict_proba(text_data, nlp_model):
@@ -202,50 +201,47 @@ def _predict_proba(text_data, nlp_model):
     return dict(proba_dict)
 ```
 
-Cette fonction retourne un score de confiance compris entre 0 et 1 pour chaque groupe de mot identifié comme étant 
-un titre.
+This function returns a confidence score between 0 and 1 for each group of words identified as being a title.
 
 ```json
-{"le vrai titre du document": [1.0, 0.946, 1.0, 0.3], 
- "une appareance de titre": [0.123, 0.356, 0.65], 
- "des mots quelconques": [0.006],
- "autre chose": [0.981]}
+{"the real doc title": [1.0, 0.946, 1.0, 0.3], 
+ "a semblance of title": [0.123, 0.356, 0.65], 
+ "any words": [0.006],
+ "something else": [0.981]}
 ```
 
-Pour plus de clarté on agrège en sommant les confiances, on normalise en divisant par la somme totale et 
-on trie par ordre décroissant. La normalisation permet de comparer les confiances entre les documents.
+For more clarity we aggregate by summing the confidences, we normalize by dividing by the total sum and
+we sort in descending order. Standardization makes it possible to compare the confidences between documents.
 
 ```json
-{"le vrai titre du document": 0.605,
- "une appareance de titre": 0.211,
- "autre chose": 0.183,
- "des mots quelconques": 0.001}
+{"the real doc title": 0.605,
+ "a semblance of title": 0.211,
+ "something else": 0.183,
+ "any words": 0.001}
 ```
 
-On considère naturellement le groupe de mot avec la plus grande confiance comme étant la meilleure 
-prédiction. Traçons la densité de bonnes et mauvaises prédictions en fonction de l'incertitude.
+We naturally consider the word group with the greatest confidence to be the best prediction. Let's plot the 
+density of good and bad predictions according to the uncertainty.
 
 ![]({{site.baseurl}}/assets/img/2020-07-31/model_confidence.png)
-*Figure 4 : Densité de prédictions en fonction de l'incertitude*
+*Figure 4: Density of predictions as a function of uncertainty*
 
-Ce tracé montre que l'incertitude est moindre lorsque les prédictions sont correctes. En particulier, pour 
-une confiance supérieure à $$.4$$ (39% des cas), la précision est de 99%. Voila peut-être un moyen d'augmenter notre 
-performance. Concentrons nous sur les confiances inférieures à $$.4$$ (61% des cas). En dessous de 
-ce seuil, la précision tombe à 72%. Une analyse minutieuse de ces faibles confiances fait apparaître 
-un motif : dans les 28% d'erreurs, la valeur avec la seconde plus grande confiance est souvent la bonne 
-réponse. Cela est vrai dans 62% des cas. En d'autres termes, 62% des 28% d'erreurs contiennent la bonne réponse 
-en seconde prédiction.
+This plot shows that the uncertainty is smaller when the predictions are correct. Especially for
+a confidence greater than $$.4$$ (39% of cases), the accuracy is 99%. Maybe this is a way to increase our
+performance. Let's focus on confidences below $$.4$$ (61% of cases). Below this threshold, the accuracy 
+drops to 72%. A careful analysis of these weak confidences reveals that for the 28% of error cases, the value with 
+the second highest confidence is often the correct one. This is true 62% of the time. In other words, in 62% 
+of error cases - representing 28% of low confidence cases - the right answer is the second choice.
 
 ![]({{site.baseurl}}/assets/img/2020-07-31/tree.png)
-*Figure 5 : Récapitulatif sous forme d'arbre*
+*Figure 5: Summary in tree form*
 
-Il n'y a pas d'injonction à l'utilisation de la réponse pure de notre modèle. Le meilleur algorithme est celui 
-qui est le mieux aligné avec le besoin utilisateur. Il s'avère ici que l'utilisateur privilégie la précision. 
-On propose donc une règle basée sur la fig. 5 qui renvoie la prédiction lorsque la confiance est supérieur au seuil, 
-dans le cas contraire, il renvoie les deux prédictions ayant les plus grandes confiances.
+There is no injunction to use the pure response of our model. The best algorithm is the one which is best 
+aligned with the user need. It turns out here that the user favors accuracy. We therefore propose a rule 
+based on Fig. 5 which returns the prediction when the confidence is greater than the threshold, otherwise, 
+it yields the two predictions with the highest confidence.
 
-On peut calculer la précision avec laquelle l'utilisateur verra s'afficher la bonne réponse parmi celles 
-proposées :
+We can calculate the accuracy with which the user will see the correct answer among those proposed:
 
 $$\begin{eqnarray} 
 Accuracy_{Conf<0.4} &=& Accuracy_{FirstChoice} + Accuracy_{SecondChoice} \\
@@ -259,41 +255,37 @@ FinalAccuracy &=& 0.39 * Accuracy_{Conf>0.4} + (1-0.39) * Accuracy_{Conf<0.4} \\
 &=& 0.93 \\
 \end{eqnarray}$$
 
-On atteint ainsi 93% de précision. Pur plus de rigueur il conviendrait de créer un autre ensemble disjoint 
-de validation et vérifier ces performances.
+93% accuracy is achieved. To be more rigorous, a disjoint validation set should be created to check this performance.
 
 
 # Conclusion
 
-Le but n'est pas tout à fait atteint mais le gain est substantiel. Vincent Warderdam rappelle 
-lucidement dans [cette présentation](https://youtu.be/Z8MEFI7ZJlA?t=662) qu'il 
-est sain de "prédire moins mais prudemment". Se servir de l'information d'incertitude est profitable dans une 
-pléthore de cas d'usage. Il suffit de convenir avec l'utilisateur des conditions. Il n'aurait pas été convenable 
-par exemple dans notre exemple de donner les 5 prédictions les moins incertaines car l'utilisateur 
-aurait eu trop d'information à traiter.
+The goal is not quite reached but the gain is substantial. Vincent Warderdam recalls lucidly in [this presentation
+](https://youtu.be/Z8MEFI7ZJlA?t=662) that he it is sane to "predict less but carefully". Using uncertainty 
+information is beneficial in plenty of use cases. The conditions must simply be validated by the user. For example, 
+it would not have been suitable in our example to give the 5 highest confident predictions because the user
+would have had too much information to process.
 
-**La transparence de l'incertitude du modèle est sans doute un levier pour augmenter la satisfaction des 
-utilisateurs. C'est en dévoilant ses imperfections qu'un algorithme peut gagner la confiance des utilisateurs.**
+**The transparency of the uncertainty of the model is undoubtedly a lever to increase the user satisfaction. The 
+imperfections of an algorithm must be exhibited to gain the trust of users.**
 
-**À retenir :**
+**Key takeaways:**
 
-- Commencer avec un premier modèle simple et une boucle de rétroaction courte : que peut-on faire sans 
-algorithme d'apprentissage ?
+- Start simple with a short feedback loop: what can be done without supervised learning?
 
-- Adapter et assouplir le modèle et la métrique au cas d'usage
+- Adapt and relax the model and the metric to the use case
 
-- Utiliser l'incertitude :
+- Use uncertainty:
 
-    1. se concentrer sur les cas les plus incertains
+    1. focus on the most uncertain cases
     
-    2. rester humble en informant l'utilisateur lorsque le modèle n'est pas confiant
+    2. let the users know when the model is not confident
 
-**Pour aller plus loin :**
+**To go further:**
 
-- Rechercher les nombre minimal de données à partir duquel le modèle spaCy converge (pour ajouter des 
-nouveaux champs)
+- Find the minimal number of data from which the spaCy model converges (to add new fields in the app)
 
-- Essayer d'améliorer les performances en moyennant avec un autre modèle NER ([huggingface](https://huggingface.co/) 
-or [allennlp](https://allennlp.org/){:target="_blank"}) lorsque la confiance est basse
+- Try to improve performance by averaging with another NER model ([huggingface](https://huggingface.co/) 
+or [allennlp](https://allennlp.org/) when confidence is low
 
-- Étudier les erreurs du point de vue de la données : problème d'échantillonage pour les incertitudes élevées ?
+- Analyse the errors from the a data perspective: sampling issues for low confidences?

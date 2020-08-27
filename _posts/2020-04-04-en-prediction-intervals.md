@@ -258,7 +258,7 @@ intervals contains the true value.
 
 # Conclusion
 
-**Takeway:**
+**Key takeaways:**
 
 - A Random Forest delivers more information than one think
 
