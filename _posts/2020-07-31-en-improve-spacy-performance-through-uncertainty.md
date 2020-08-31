@@ -117,7 +117,7 @@ def _balance(data):
     return balanced_data
 ```
 
-The probability $$.1$$ can be adjusted, the objective being to reach a reasonable proportion of sample
+The probability 0.1 can be adjusted, the objective being to reach a reasonable proportion of sample
 with label (50% in our case). The algorithm thus sees many examples without annotation but is not saturated 
 with these.
 
@@ -159,7 +159,7 @@ We want to focus on errors, i.e. when the `found` column is `False`. There are 3
 
 - Index 1: even closer, there is an extra "s"
 
-From a business point of view, it does not matter to the user when the error is small. We can therefore build a
+After a review with the client, it seems that little mistakes don't matter. We can therefore build a
 distance which allows to be more flexible on the acceptance of the prediction. The function below checks that the
 predicted value is not empty, then accepts the result if it is included in the ground truth or if the 
 [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) is less than 5 (arbitrarily chosen value).
@@ -227,8 +227,8 @@ density of good and bad predictions according to the uncertainty.
 *Figure 4: Density of predictions as a function of uncertainty*
 
 This plot shows that the uncertainty is smaller when the predictions are correct. Especially for
-a confidence greater than $$.4$$ (39% of cases), the accuracy is 99%. Maybe this is a way to increase our
-performance. Let's focus on confidences below $$.4$$ (61% of cases). Below this threshold, the accuracy 
+a confidence greater than 0.4 (39% of cases), the accuracy is 99%. Maybe this is a way to increase our
+performance. Let's focus on confidences below 0.4 (61% of cases). Below this threshold, the accuracy 
 drops to 72%. A careful analysis of these weak confidences reveals that for the 28% of error cases, the value with 
 the second highest confidence is often the correct one. This is true 62% of the time. In other words, in 62% 
 of error cases - representing 28% of low confidence cases - the right answer is the second choice.
