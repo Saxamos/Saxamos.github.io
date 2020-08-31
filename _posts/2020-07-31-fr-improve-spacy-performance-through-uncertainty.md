@@ -126,7 +126,7 @@ def _balance(data):
     return balanced_data
 ```
 
-La probabilité $$.1$$ peut être ajustée, l'objectif étant d'atteindre une proportion raisonnable d'échantillon 
+La probabilité 0.1 peut être ajustée, l'objectif étant d'atteindre une proportion raisonnable d'échantillon 
 avec étiquette (50% dans notre cas). L'algorithme voit ainsi passer de nombreux exemples sans annotation mais 
 n'est pas saturé par ces derniers.
 
@@ -239,8 +239,8 @@ prédiction. Traçons la densité de bonnes et mauvaises prédictions en fonctio
 *Figure 4 : Densité de prédictions en fonction de l'incertitude*
 
 Ce tracé montre que l'incertitude est moindre lorsque les prédictions sont correctes. En particulier, pour 
-une confiance supérieure à $$.4$$ (39% des cas), la précision est de 99%. Voila peut-être un moyen d'augmenter notre 
-performance. Concentrons nous sur les confiances inférieures à $$.4$$ (61% des cas). En dessous de 
+une confiance supérieure à 0.4 (39% des cas), la précision est de 99%. Voila peut-être un moyen d'augmenter notre 
+performance. Concentrons nous sur les confiances inférieures à 0.4 (61% des cas). En dessous de 
 ce seuil, la précision tombe à 72%. Une analyse minutieuse de ces faibles confiances fait apparaître 
 un motif : dans les 28% d'erreurs, la valeur avec la seconde plus grande confiance est souvent la bonne 
 réponse. Cela est vrai dans 62% des cas. En d'autres termes, 62% des 28% d'erreurs contiennent la bonne réponse 
