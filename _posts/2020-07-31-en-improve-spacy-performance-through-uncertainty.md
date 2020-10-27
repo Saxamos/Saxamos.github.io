@@ -12,7 +12,7 @@ In this article, we will see how the search for uncertainty of a fairly complex 
 increase accuracy as well as end user satisfaction with a supervised learning system.
 
 The topics will be detailed in the following order: context and first adopted solution, choice of model
-[NER](https://en.wikipedia.org/wiki/Named-entity_recognition) (Named Entity Recognition),
+[NER](https://en.wikipedia.org/wiki/Named-entity_recognition){:target="_blank"} (Named Entity Recognition),
 error analysis and uncertainty quantification to improve results. The presented data are fake for 
 confidentiality reasons.
 
@@ -22,7 +22,7 @@ confidentiality reasons.
 In a recent project, my goal was to extract information from a PDF corpus. After reading a dozen documents 
 quickly, it turned out that several searched fields followed a fairly simple recurring pattern. This allowed 
 the creation of a very simple first model based on [regular expression
-](https://en.wikipedia.org/wiki/Regular_expression). The following elementary pipeline validates 70% objectives:
+](https://en.wikipedia.org/wiki/Regular_expression){:target="_blank"}. The following elementary pipeline validates 70% objectives:
 
 - Convert PDF to text file with *pdftotext*
 
@@ -37,7 +37,7 @@ the creation of a very simple first model based on [regular expression
     
     2. Or with a lookup table (search for a match between the table and the N characters following the pattern)
 
-To create a first view of this pipeline, I chose [streamlit](https://www.streamlit.io/) - a project which 
+To create a first view of this pipeline, I chose [streamlit](https://www.streamlit.io/){:target="_blank"} - a project which 
 allows to quickly create a rendering in the browser. The few lines of code below display a page where a PDF can be 
 uploaded and the model result be seen.
 
@@ -69,7 +69,7 @@ pdf_file.close()
 *Figure 2: PDF and predictions preview*
 
 In addition to make the task easy, the streamlit community is active (see the [resolution of the PDF rendering issue
-](https://github.com/streamlit/streamlit/issues/1088).
+](https://github.com/streamlit/streamlit/issues/1088){:target="_blank"}.
 
 The two conclusions of this first part have - for my greatest happiness - become prosaic: at the beginning of
 project, the most value are produced by the most naive ideas and the open source tools are admirable.
@@ -79,13 +79,13 @@ project, the most value are produced by the most naive ideas and the open source
 
 Some fields are more complex to extract. A simple statistical analysis is not sufficient to find recurring 
 patterns. They are neither in a defined place in the text nor have any particular structure. Some internet research 
-quickly lead us to named entity recognition models [NER](https://en.wikipedia.org/wiki/Named-entity_recognition) 
+quickly lead us to named entity recognition models [NER](https://en.wikipedia.org/wiki/Named-entity_recognition){:target="_blank"} 
 which allow to associate words with labels thanks to supervised learning.
 
 Several libraries implement easy to use wrappers for training and inference. I chose [spaCy
-](https://spacy.io/usage/linguistic-features#named-entities) which highlights its ergonomics and temporal 
+](https://spacy.io/usage/linguistic-features#named-entities){:target="_blank"} which highlights its ergonomics and temporal 
 performances (~2 hours per training on a 16-core CPU). For more details on how the model works, the documentation, 
-especially [this video](https://spacy.io/universe/project/video-spacys-ner-model) is useful.
+especially [this video](https://spacy.io/universe/project/video-spacys-ner-model){:target="_blank"} is useful.
 
 The dataset contains 3,000 partially annotated documents. Partially means that all the searched fields 
 are not annotated, however when a field is annotated, it is over the entire dataset. The annotation has been 
@@ -121,14 +121,14 @@ The probability 0.1 can be adjusted, the objective being to reach a reasonable p
 with label (50% in our case). The algorithm thus sees many examples without annotation but is not saturated 
 with these.
 
-Once the data is formatted, reading the [example scripts](https://spacy.io/usage/training#ner) provided allows
+Once the data is formatted, reading the [example scripts](https://spacy.io/usage/training#ner){:target="_blank"} provided allows
 to start training a first model. I made some preliminary changes to the code:
 
 - refactor and test the code
 
-- use [click](https://click.palletsprojects.com/en/7.x/) for the command lines
+- use [click](https://click.palletsprojects.com/en/7.x/){:target="_blank"} for the command lines
 
-- add [tqdm](https://github.com/tqdm/tqdm) to monitor time-consuming tasks
+- add [tqdm](https://github.com/tqdm/tqdm){:target="_blank"} to monitor time-consuming tasks
 
 - create a function to compute our own business metric at each iteration (by default only the *loss* is calculated)
 
@@ -162,7 +162,7 @@ We want to focus on errors, i.e. when the `found` column is `False`. There are 3
 After a review with the client, it seems that little mistakes don't matter. We can therefore build a
 distance which allows to be more flexible on the acceptance of the prediction. The function below checks that the
 predicted value is not empty, then accepts the result if it is included in the ground truth or if the 
-[Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) is less than 5 (arbitrarily chosen value).
+[Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance){:target="_blank"} is less than 5 (arbitrarily chosen value).
 
 ```python
 from Levenshtein import distance
@@ -186,7 +186,7 @@ with updated hyperparameters.
 
 To continue on the error analysis, I wanted to quantify the uncertainty of predictions. The ease of use 
 of spaCy has a cost, we discover it when trying to access probabilities. Nevertheless, knowledge sharing 
-within the community again allows to find a [clue](https://github.com/explosion/spaCy/issues/881):
+within the community again allows to find a [clue](https://github.com/explosion/spaCy/issues/881){:target="_blank"}:
 
 ```python
 def _predict_proba(text_data, nlp_model):
@@ -261,7 +261,7 @@ FinalAccuracy &=& 0.39 * Accuracy_{Conf>0.4} + (1-0.39) * Accuracy_{Conf<0.4} \\
 # Conclusion
 
 The goal is not quite reached but the gain is substantial. Vincent Warderdam recalls lucidly in [this presentation
-](https://youtu.be/Z8MEFI7ZJlA?t=662) that he it is sane to "predict less but carefully". Using uncertainty 
+](https://youtu.be/Z8MEFI7ZJlA?t=662){:target="_blank"} that he it is sane to "predict less but carefully". Using uncertainty 
 information is beneficial in plenty of use cases. The conditions must simply be validated by the user. For example, 
 it would not have been suitable in our example to give the 5 highest confident predictions because the user
 would have had too much information to process.
@@ -285,7 +285,7 @@ imperfections of an algorithm must be exhibited to gain the trust of users.**
 
 - Find the minimal number of data from which the spaCy model converges (to add new fields in the app)
 
-- Try to improve performance by averaging with another NER model ([huggingface](https://huggingface.co/) 
-or [allennlp](https://allennlp.org/) when confidence is low
+- Try to improve performance by averaging with another NER model like [huggingface](https://huggingface.co/){:target="_blank"} 
+or [allennlp](https://allennlp.org/){:target="_blank"} when confidence is low
 
 - Analyse the errors from the a data perspective: sampling issues for low confidences?

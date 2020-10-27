@@ -9,12 +9,12 @@ ref:    probability-calibration
 ---
 
 I gave a talk on this topic at the 
-[PyData NYC 2019](https://pydata.org/nyc2019/schedule/presentation/24/quantifying-uncertainty-in-machine-learning-models/).
-Video can be found [here](https://www.youtube.com/watch?v=yk5cmVW3EA0)
+[PyData NYC 2019](https://pydata.org/nyc2019/schedule/presentation/24/quantifying-uncertainty-in-machine-learning-models/){:target="_blank"}.
+Video can be found [here](https://www.youtube.com/watch?v=yk5cmVW3EA0){:target="_blank"}
 
 ---
 
-In the [previous article](https://saxamos.github.io/prediction-intervals/), we described a technique to measure the 
+In the [previous article](https://saxamos.github.io/prediction-intervals/){:target="_blank"}, we described a technique to measure the 
 uncertainty in regression. <br>
 **What about the other supervised learning field: classification?**
 
@@ -26,7 +26,7 @@ This is far from being the case in practice for many algorithms.
 Below are two examples where having a calibrated probability is necessary:
 
 - In marketing, we evaluate what a client brings back throughout the period during which he remains 
-loyal to the company: the [Customer Lifetime Value (CLV)](https://clevertap.com/blog/customer-lifetime-value/). 
+loyal to the company: the [Customer Lifetime Value (CLV)](https://clevertap.com/blog/customer-lifetime-value/){:target="_blank"}. 
 It is then common to multiply the price of a product by the probability 
 that it has to be bought: $CLV = 200€\times0.1 = 20€$.
 
@@ -34,14 +34,14 @@ that it has to be bought: $CLV = 200€\times0.1 = 20€$.
 to patients. In contrast, a probability with physical meaning is vital.
 
 Uncalibrated models are a pain when it comes to interpreting the result of 
-[*predict_proba*](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict_proba). 
+[*predict_proba*](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict_proba){:target="_blank"}. 
 The abstraction of this method - which tend to be used without understanding of what is behind it - is very 
 dangerous when we see the calibration concerns that we will illustrate in the first part. <br>
 However, methods exist to overcome the pitfalls of calibration such as isotonic regression 
 which we will detail in the second part.
 
-The code used is available [here](https://gist.github.com/Saxamos/e27c3c83aa57c747a88aecbd84afa10c) 
-and [there](https://gist.github.com/Saxamos/1da125a5e0ebc2458d446badf0a676f5).
+The code used is available [here](https://gist.github.com/Saxamos/e27c3c83aa57c747a88aecbd84afa10c){:target="_blank"} 
+and [there](https://gist.github.com/Saxamos/1da125a5e0ebc2458d446badf0a676f5){:target="_blank"}.
 
 
 # Calibration curves
@@ -74,16 +74,16 @@ library. The algorithm is as follows:
 
 - calculate the proportion of individuals belonging to class C
 
-This [code](https://gist.github.com/Saxamos/e27c3c83aa57c747a88aecbd84afa10c) is used to generate Figures 1 and 2.
+This [code](https://gist.github.com/Saxamos/e27c3c83aa57c747a88aecbd84afa10c){:target="_blank"} is used to generate Figures 1 and 2.
 
 ![]({{site.baseurl}}/assets/img/2020-04-18/calibration_curve_1.png)
 *Figure 1: Calibration curves for 4 classifiers*
 
 This figure illustrates the pitfalls of the results of methods called *predict_proba* in 
 classification algorithms. Data is simulated using the 
-[*make_classification*](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html) 
+[*make_classification*](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html){:target="_blank"} 
 method and the classifiers have been set to have comparable 
-[*auc*](https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve) score.
+[*auc*](https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve){:target="_blank"} score.
 
 - **The black line** represents the perfect calibration: for each group of individuals with a 
 similar predicted probability, the proportion (empirical probability) of these individuals really 
@@ -106,7 +106,7 @@ is very rare because of the bagging which creates noise). As a result, there is 
 the classifier could trust his intuition more and bring the probabilities closer to 0 and 1.
 
 - **The Support Vector Machine** does not have a *predict_proba* method but a 
-[*decision_function*](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC.decision_function) 
+[*decision_function*](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC.decision_function){:target="_blank"} 
 method which returns the distance to the separating hyperplane (i.e. decision boundary) as a confidence indication. 
 This distance (not between 0 and 1) is not a probability and we can clearly see it by observing again a sigmoid 
 even further from the black line.
@@ -121,8 +121,8 @@ not compute a probability. It is the mean of the nearest classes weighted by the
 For example, if $k=15$, twelve closest neighbors are 1 and three are 0, all being equidistant, then the 
 probability of belonging to class 1 would be $\dfrac{12}{15}=0.8$.
 
-- **The LightGBM** algorithm is a [boosting](https://en.wikipedia.org/wiki/Boosting_(machine_learning)) method. 
-The probabilities aren’t bad due to the optimization of the [logloss](https://en.wikipedia.org/wiki/Cross_entropy).
+- **The LightGBM** algorithm is a [boosting](https://en.wikipedia.org/wiki/Boosting_(machine_learning)){:target="_blank"} method. 
+The probabilities aren’t bad due to the optimization of the [logloss](https://en.wikipedia.org/wiki/Cross_entropy){:target="_blank"}.
 
 - **The perceptron** is fairly well calibrated because it is made up of a single layer of 100 neurons. Thus, 
 the learned function is linear. In addition, the output activation is a sigmoid, which approximates many probabilities.
@@ -130,7 +130,7 @@ the learned function is linear. In addition, the output activation is a sigmoid,
 - **The Keras** neural network is made up of 2 layers, the architecture is more complex, the function 
 is no longer linear. For several years now, the performance of networks has exploded, as has the 
 complexity of their architectures. The techniques used to avoid the problems of 
-[vanishing gradient](https://en.wikipedia.org/wiki/Vanishing_gradient_problem) and ReLu dying [2] have 
+[vanishing gradient](https://en.wikipedia.org/wiki/Vanishing_gradient_problem){:target="_blank"} and ReLu dying [2] have 
 degraded the calibration of probabilities [3].
 
 N.B: Undersampling and oversampling techniques - to tackle the problem of unbalanced data - modify the prior 
@@ -153,7 +153,7 @@ predicted by the classifier and with target $y$ the associated real targets
 - Compute the calibrated probabilities by composing the isotonic regression and the 
 model: $p=IsotonicRegression(model(X))$
 
-Here is an [example of python code](https://gist.github.com/Saxamos/1da125a5e0ebc2458d446badf0a676f5) that 
+Here is an [example of python code](https://gist.github.com/Saxamos/1da125a5e0ebc2458d446badf0a676f5){:target="_blank"} that 
 calibrates the probabilities of a naive Bayesian classifier:
 
 ![]({{site.baseurl}}/assets/img/2020-04-18/iso_reg.png)
@@ -166,7 +166,7 @@ approximately a probability of 0.4 according to the blue curve above.
 ![]({{site.baseurl}}/assets/img/2020-04-18/nb_calibrated.png)
 *Figure 4: Comparison of probabilities before and after calibration*
 
-The [CalibratedClassifierCV](https://scikit-learn.org/stable/modules/generated/sklearn.calibration.CalibratedClassifierCV.html) 
+The [CalibratedClassifierCV](https://scikit-learn.org/stable/modules/generated/sklearn.calibration.CalibratedClassifierCV.html){:target="_blank"} 
 class allows you to do this concisely, but it seemed interesting to detail it in the code for the sake of 
 understanding. In fig. 4, in addition to the calibration difference between the simple model and 
 the calibrated one, we see that the logloss score is significantly better when the probabilities are 
@@ -184,7 +184,7 @@ $$\min \sum_{i=1}^{n}(y_i - f(p_i))^2 \quad / \quad ∀ \quad p_i < p_j, \quad f
 The algorithm used - which we will only illustrate [5] - is called PAVA (Pool Adjacent Violators Algorithm) 
 and has a linear complexity. It takes as input the vector of real targets ordered by increasing predicted probability.
 
-This [code snippet](https://gist.github.com/Saxamos/1da125a5e0ebc2458d446badf0a676f5) generates the following figure:
+This [code snippet](https://gist.github.com/Saxamos/1da125a5e0ebc2458d446badf0a676f5){:target="_blank"} generates the following figure:
 
 ![]({{site.baseurl}}/assets/img/2020-04-18/calibration.gif){: .gif-alignment}
 *Figure 5: Calibration with PAVA algorithm*
@@ -231,9 +231,9 @@ the probabilities are calibrated (i.e. the probabilities are close to 0 and 1).
 
         2. The Bayesian Binning [7] which tries to solve the problem of the possible non-monotony of the calibration curve.
 
-- Finally, [bayesian learning](http://bayesiandeeplearning.org/), a popular subject, tackles neural networks and 
+- Finally, [bayesian learning](http://bayesiandeeplearning.org/){:target="_blank"}, a popular subject, tackles neural networks and 
 offers a new approach based on the notion of uncertainty. The 
-[TensorFlow Probability](https://www.tensorflow.org/probability) library offers the possibility of learning the 
+[TensorFlow Probability](https://www.tensorflow.org/probability){:target="_blank"} library offers the possibility of learning the 
 parameters of distributions to predict this uncertainty.
 
 Edit: I found an interesting paper that try to evaluate predictive uncertainty under dataset shift [8]. One 
@@ -245,7 +245,7 @@ without calibration ¯\\\_(ツ)_/¯.
 
 ## Références
 
-[1] [https://jmetzen.github.io/2015-04-14/calibration.html](https://jmetzen.github.io/2015-04-14/calibration.html)
+[1] [https://jmetzen.github.io/2015-04-14/calibration.html](https://jmetzen.github.io/2015-04-14/calibration.html){:target="_blank"}
 
 [2] Dying ReLU and Initialization: Theory and Numerical Examples. Lu Lu, Yeonjong Shin, Yanhui Su, George Em Karniadakis. 2019
 
@@ -253,7 +253,7 @@ without calibration ¯\\\_(ツ)_/¯.
 
 [4] Transforming Classifier Scores into Accurate Multiclass Probability Estimates. Bianca Zadrozny and Charles Elkan. 2002
 
-[5] [http://fa.bianp.net/blog/2013/isotonic-regression/](http://fa.bianp.net/blog/2013/isotonic-regression/)
+[5] [http://fa.bianp.net/blog/2013/isotonic-regression/](http://fa.bianp.net/blog/2013/isotonic-regression/){:target="_blank"}
 
 [6] Spline-Based Probability Calibration. Brian Lucena. 2018
 

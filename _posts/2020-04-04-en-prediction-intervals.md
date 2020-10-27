@@ -9,8 +9,8 @@ ref:    prediction-intervals
 ---
 
 I gave a talk on this topic at the 
-[PyData NYC 2019](https://pydata.org/nyc2019/schedule/presentation/24/quantifying-uncertainty-in-machine-learning-models/).
-Video can be found [here](https://www.youtube.com/watch?v=yk5cmVW3EA0)
+[PyData NYC 2019](https://pydata.org/nyc2019/schedule/presentation/24/quantifying-uncertainty-in-machine-learning-models/){:target="_blank"}.
+Video can be found [here](https://www.youtube.com/watch?v=yk5cmVW3EA0){:target="_blank"}
 
 ---
 
@@ -25,7 +25,7 @@ $$E\left(Y \left\vert X \right. \right)$$
 Can we quantify the error of our model in its predictions?**
 
 To show how we can answer these questions, we will use the data 
-[Superconductivty Data](http://archive.ics.uci.edu/ml/datasets/Superconductivty+Data#) [1] identifying the critical 
+[Superconductivty Data](http://archive.ics.uci.edu/ml/datasets/Superconductivty+Data#){:target="_blank"} [1] identifying the critical 
 temperature in Kelvin below which different materials become superconductive.
 
 Here, the target variable $Y$ is the critical temperature (*critical_temp*). The explanatory variables $X$ define the 
@@ -48,7 +48,7 @@ A binary decision tree for regression is built with nodes (representing rules) o
 For example, is the average atomic mass of the observation less than 60u?
 
 These rules are automatically defined by minimizing a cost function $J$. We minimize $J$ by calculating its value 
-on different thresholds of different variables. By default, the [scikit-learn](http://scikit-learn.org/stable/) 
+on different thresholds of different variables. By default, the [scikit-learn](http://scikit-learn.org/stable/){:target="_blank"} 
 library uses the mean squared error.
 
 $$J = \frac{1}{n} \sum_{i=1}^{n}{(y_i - \widehat{y_i})^2}$$
@@ -110,8 +110,8 @@ This code returns the matrix of predictions for each tree for each observation. 
 
 
 From the conditional distributions on each material, one can compute the mean (the value returned by the 
-predict method of scikit-learn), but also the median, quantiles and [other](https://en.wikipedia.org/wiki/Variance) 
-[statistical](https://en.wikipedia.org/wiki/Skewness) [moments](https://en.wikipedia.org/wiki/Kurtosis).
+predict method of scikit-learn), but also the median, quantiles and [other](https://en.wikipedia.org/wiki/Variance){:target="_blank"} 
+[statistical](https://en.wikipedia.org/wiki/Skewness){:target="_blank"} [moments](https://en.wikipedia.org/wiki/Kurtosis){:target="_blank"}.
 
 The narrow distributions for observations 0, 2 and 4 show that the model seems more confident than its prediction in 
 observations 1 and 3.  
@@ -227,7 +227,7 @@ only their average) to rebuild the distribution of critical temperatures observe
 
 There are more than 100 samples of training data in the leaves. For the right leaf of the right tree, 
 only the average of the 114 target values (76.0K) is stored. Nevertheless, the 
-[Quantile Regression Forest](https://scikit-garden.github.io/examples/QuantileRegressionForests/) 
+[Quantile Regression Forest](https://scikit-garden.github.io/examples/QuantileRegressionForests/){:target="_blank"} 
 algorithm [3] keeps in memory each of the 114 critical temperatures associated with this leaf (and likewise 
 for each leaf of each tree) in order to reconstruct the conditional distribution.
 
@@ -240,7 +240,7 @@ $[y_{left-left-1}, y_{left-left-2}, ..., y_{left-left-144}]$ weighted by $\frac{
 $[y_{right-right-1}, y_{right-right-2}, ..., y_{right-right-114}]$ weighted by $\frac{1}{114}$.
 
 The concatenation of all those weighted values then allows us to find the percentiles thanks to the 
-[weighted percentile method](https://en.wikipedia.org/wiki/Percentile#The_weighted_percentile_method).
+[weighted percentile method](https://en.wikipedia.org/wiki/Percentile#The_weighted_percentile_method){:target="_blank"}.
 
 {% highlight python %}
 from skgarden import RandomForestQuantileRegressor
