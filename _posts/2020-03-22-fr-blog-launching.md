@@ -13,7 +13,7 @@ En cette période pour le moins atypique de confinement, j'ai finalement trouvé
 de longue date : le développement d'un blog 👨‍💻. Cette réalisation m'a non seulement fait progresser sur sur le 
 web design, mais m'a aussi procuré l'agréable sensation d'avoir accompli une tâche sur laquelle j'avais longtemps 
 procrastiné. En outre, j'ai brisé la routine : jouer la [suite pour violoncelle](
-https://www.youtube.com/watch?v=mGQLXRTl3Z0) au ténor 🎷 et perdre à FIFA 20 ⚽.
+https://www.youtube.com/watch?v=mGQLXRTl3Z0){:target="_blank"} au ténor 🎷 et perdre à FIFA 20 ⚽.
 
 
 ## Articles à paraître
@@ -22,15 +22,15 @@ https://www.youtube.com/watch?v=mGQLXRTl3Z0) au ténor 🎷 et perdre à FIFA 20
 
 1. Créer un CV en ligne dans une page liée à ce site
 
-2. Traduire les articles écrits lorsque je travaillais chez [OCTO Technology](https://www.octo.com/):
+2. Traduire les articles écrits lorsque je travaillais chez [OCTO Technology](https://www.octo.com/){:target="_blank"}:
 
-      - [Intervalles de prédiction](https://blog.octo.com/les-intervalles-de-prediction/)
+      - [Intervalles de prédiction](https://blog.octo.com/les-intervalles-de-prediction/){:target="_blank"}
 
-      - [Calibration de probabilité](https://blog.octo.com/calibration-de-probabilite/)
+      - [Calibration de probabilité](https://blog.octo.com/calibration-de-probabilite/){:target="_blank"}
 
-      - [Entraîner](https://blog.octo.com/ia-embarquee-deployer-du-deep-learning-sur-un-raspberry/), 
-      [déployer](https://blog.octo.com/lia-embarquee-entrainer-deployer-et-utiliser-du-deep-learning-sur-un-raspberry-partie-2/) 
-      [et servir du Deep Learning sur une Raspberry](https://blog.octo.com/lia-embarquee-entrainer-deployer-et-utiliser-du-deep-learning-sur-un-raspberry-partie-3/)
+      - [Entraîner](https://blog.octo.com/ia-embarquee-deployer-du-deep-learning-sur-un-raspberry/){:target="_blank"}, 
+      [déployer](https://blog.octo.com/lia-embarquee-entrainer-deployer-et-utiliser-du-deep-learning-sur-un-raspberry-partie-2/){:target="_blank"} 
+      [et servir du Deep Learning sur une Raspberry](https://blog.octo.com/lia-embarquee-entrainer-deployer-et-utiliser-du-deep-learning-sur-un-raspberry-partie-3/){:target="_blank"}
       , un triptyque co-écrit avec Constant Bridon et Paul De Nonancourt
 
 3. Ecrire de nouveaux articles:

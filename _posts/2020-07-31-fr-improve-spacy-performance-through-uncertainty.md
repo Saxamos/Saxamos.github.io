@@ -14,7 +14,7 @@ la précision de manière substantielle ainsi que la satisfaction de l'utilisate
 d'apprentissage supervisé.
 
 Les sujets seront détaillés dans l'ordre suivant : contexte et première solution retenue, choix du modèle 
-[NER](https://fr.wikipedia.org/wiki/Reconnaissance_d%27entit%C3%A9s_nomm%C3%A9es) (Reconnaissance d'Entités Nommées), 
+[NER](https://fr.wikipedia.org/wiki/Reconnaissance_d%27entit%C3%A9s_nomm%C3%A9es){:target="_blank"} (Reconnaissance d'Entités Nommées), 
 analyse des erreurs et enfin quantification d'incertitude pour améliorer les résultats. Les données présentées 
 ne sont pas celles du projet pour des raisons de confidentialité.
 
@@ -41,7 +41,7 @@ des objectifs :
     2. Soit avec une table de correspondance (recherche d'un match entre la table et les N caractères suivant le motif)
 
 Pour finaliser un premier rendu applicatif associé à ce pipeline, j'ai choisi [streamlit](
-https://www.streamlit.io/) - un projet qui permet de créer rapidement un rendu dans le 
+https://www.streamlit.io/){:target="_blank"} - un projet qui permet de créer rapidement un rendu dans le 
 navigateur. Les quelques lignes de code ci-après affichent une page ou l'on peut téléverser un document 
 PDF et voir le résultat du modèle.
 
@@ -73,7 +73,7 @@ pdf_file.close()
 *Figure 2 : Aperçu du PDF et des prédictions*
 
 En plus de rendre la tâche aisée, la communauté streamlit est active comme l'illustre la résolution 
-du [problème rencontré](https://github.com/streamlit/streamlit/issues/1088) pour afficher le PDF.
+du [problème rencontré](https://github.com/streamlit/streamlit/issues/1088){:target="_blank"} pour afficher le PDF.
 
 Les deux conclusions de cette première partie sont - non pour me déplaire - devenues prosaïques : en début de 
 projet, les idées les plus naïves apportent le plus de valeur et les outils de la communauté du 
@@ -83,21 +83,21 @@ logiciel libre sont admirables.
 # Le modèle NER
 
 Certains champs à extraire présentent une plus grande complexité. Une simple analyse statistique ne permet pas de 
-trouver de motif réccurent. Ils ne se trouvent ni à une place définie dans le texte ni n'ont de structure 
+trouver de motif récurrent. Ils ne se trouvent ni à une place définie dans le texte ni n'ont de structure 
 particulière. Quelques recherches sur internet nous guident rapidement vers les modèles de reconnaissance d'entités 
-nommées [NER](https://fr.wikipedia.org/wiki/Reconnaissance_d%27entit%C3%A9s_nomm%C3%A9es) qui permettent grâce à 
+nommées [NER](https://fr.wikipedia.org/wiki/Reconnaissance_d%27entit%C3%A9s_nomm%C3%A9es){:target="_blank"} qui permettent grâce à 
 l'apprentissage supervisé d'associer des mots à des étiquettes.
 
 Plusieurs librairies implémentent des surcouches facilitant la prise en main des modèles pour l'entraînement et 
-l'inférence. J'ai opté pour [spaCy](https://spacy.io/usage/linguistic-features#named-entities) qui met en avant 
+l'inférence. J'ai opté pour [spaCy](https://spacy.io/usage/linguistic-features#named-entities){:target="_blank"} qui met en avant 
 son ergonomie et ses performances temporelles (~2h par entraînement sur un CPU 16 coeurs). Pour plus de 
 détails quant au fonctionnement du modèle, il convient de se référer à la documentation, en particulier à 
-[cette vidéo](https://spacy.io/universe/project/video-spacys-ner-model). 
+[cette vidéo](https://spacy.io/universe/project/video-spacys-ner-model){:target="_blank"}. 
 
 Le dataset contient 3,000 documents partiellement annotés. Partiellement signifie ici que tous les champs cherchés ne 
 sont pas annotés, en revanche lorsqu'un champ est annoté, il l'est sur la totalité du dataset. L'annotation a 
 été effectuée de façon automatique en parcourant le code HTML de pages web ([scrapping](
-https://fr.wikipedia.org/wiki/Web_scraping)). Comme stratégie de validation croisée j'ai retenue un découpage 
+https://fr.wikipedia.org/wiki/Web_scraping){:target="_blank"}). Comme stratégie de validation croisée j'ai retenue un découpage 
 avec 2,100 documents pour l'entraînement et 900 pour la validation. La précision recherchée est de l'ordre 
 de 95% pour chaque champ.
 
@@ -130,14 +130,14 @@ La probabilité 0.1 peut être ajustée, l'objectif étant d'atteindre une propo
 avec étiquette (50% dans notre cas). L'algorithme voit ainsi passer de nombreux exemples sans annotation mais 
 n'est pas saturé par ces derniers.
 
-Une fois les donées formatées, la lectures des [scripts d'exemple](https://spacy.io/usage/training#ner) fournis permet 
+Une fois les donées formatées, la lectures des [scripts d'exemple](https://spacy.io/usage/training#ner){:target="_blank"} fournis permet 
 de lancer l'entraînement d'un premier modèle. J'ai effectué quelques modifications préliminaires au code :
 
 - factoriser et tester le code
 
-- utiliser [click](https://click.palletsprojects.com/en/7.x/) pour les commandes
+- utiliser [click](https://click.palletsprojects.com/en/7.x/){:target="_blank"} pour les commandes
 
-- ajouter [tqdm](https://github.com/tqdm/tqdm) pour controller l'avancement des tâches chronophages
+- ajouter [tqdm](https://github.com/tqdm/tqdm){:target="_blank"} pour controller l'avancement des tâches chronophages
 
 - créer une fonction pour calculer notre métrique métier à chaque itération (par défaut seule la *loss* est calculée)
 
@@ -172,7 +172,7 @@ dans la table ci-dessus :
 D'un point de vue métier cela importe peu l'utilisateur lorsque l'erreur est petite. On peu donc construire une 
 distance qui permet d'être plus flexible sur l'acceptation de la prédiction. La fonction ci-après vérifie que la 
 valeur prédite n'est pas vide, puis accepte le résultat en cas d'inclusion ou si la [distance de 
-Levenshtein](https://fr.wikipedia.org/wiki/Distance_de_Levenshtein) est inférieure à 5 (valeur arbitrairement choisie).
+Levenshtein](https://fr.wikipedia.org/wiki/Distance_de_Levenshtein){:target="_blank"} est inférieure à 5 (valeur arbitrairement choisie).
 
 ```python
 from Levenshtein import distance
@@ -197,7 +197,7 @@ réentrainements en modifiant les hyperparamètres.
 Dans la continuité de la partie précédente et pour mieux comprendre les résultats du modèle, j'ai souhaité 
 quantifier l'incertitude des prédictions. La facilité d'utilisation de la librairie a un coût, on le découvre 
 lorsqu'on cherche à accéder aux probabilités. Néanmoins, le partage de connaissances au sein de la 
-communauté permet à nouveau de trouver des [élements de réponse](https://github.com/explosion/spaCy/issues/881) :
+communauté permet à nouveau de trouver des [élements de réponse](https://github.com/explosion/spaCy/issues/881){:target="_blank"} :
 
 ```python
 def _predict_proba(text_data, nlp_model):
@@ -276,7 +276,7 @@ de validation et vérifier ces performances.
 # Conclusion
 
 Le but n'est pas tout à fait atteint mais le gain est substantiel. Vincent Warderdam rappelle 
-lucidement dans [cette présentation](https://youtu.be/Z8MEFI7ZJlA?t=662) qu'il 
+lucidement dans [cette présentation](https://youtu.be/Z8MEFI7ZJlA?t=662){:target="_blank"} qu'il 
 est sain de "prédire moins mais prudemment". Se servir de l'information d'incertitude est profitable dans une 
 pléthore de cas d'usage. Il suffit de convenir avec l'utilisateur des conditions. Il n'aurait pas été convenable 
 par exemple dans notre exemple de donner les 5 prédictions les moins incertaines car l'utilisateur 
@@ -303,7 +303,7 @@ algorithme d'apprentissage ?
 - Rechercher les nombre minimal de données à partir duquel le modèle spaCy converge (pour ajouter des 
 nouveaux champs)
 
-- Essayer d'améliorer les performances en moyennant avec un autre modèle NER ([huggingface](https://huggingface.co/) 
-or [allennlp](https://allennlp.org/)) lorsque la confiance est basse
+- Essayer d'améliorer les performances en moyennant avec un autre modèle NER comme [huggingface](https://huggingface.co/){:target="_blank"} 
+ou [allennlp](https://allennlp.org/){:target="_blank"} lorsque la confiance est basse
 
 - Étudier les erreurs du point de vue de la données : problème d'échantillonage pour les incertitudes élevées ?
