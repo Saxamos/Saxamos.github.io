@@ -130,7 +130,7 @@ La probabilité 0.1 peut être ajustée, l'objectif étant d'atteindre une propo
 avec étiquette (50% dans notre cas). L'algorithme voit ainsi passer de nombreux exemples sans annotation mais 
 n'est pas saturé par ces derniers.
 
-Une fois les donées formatées, la lectures des [scripts d'exemple](https://spacy.io/usage/training#ner){:target="_blank"} fournis permet 
+Une fois les données formatées, la lectures des [scripts d'exemple](https://spacy.io/usage/training#ner){:target="_blank"} fournis permet 
 de lancer l'entraînement d'un premier modèle. J'ai effectué quelques modifications préliminaires au code :
 
 - factoriser et tester le code
