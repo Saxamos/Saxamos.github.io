@@ -197,7 +197,7 @@ réentrainements en modifiant les hyperparamètres.
 Dans la continuité de la partie précédente et pour mieux comprendre les résultats du modèle, j'ai souhaité 
 quantifier l'incertitude des prédictions. La facilité d'utilisation de la librairie a un coût, on le découvre 
 lorsqu'on cherche à accéder aux probabilités. Néanmoins, le partage de connaissances au sein de la 
-communauté permet à nouveau de trouver des [élements de réponse](https://github.com/explosion/spaCy/issues/881){:target="_blank"} :
+communauté permet à nouveau de trouver des [éléments de réponse](https://github.com/explosion/spaCy/issues/881){:target="_blank"} :
 
 ```python
 def _predict_proba(text_data, nlp_model):
@@ -217,7 +217,7 @@ un titre.
 
 ```json
 {"le vrai titre du document": [1.0, 0.946, 1.0, 0.3], 
- "une appareance de titre": [0.123, 0.356, 0.65], 
+ "une apparence de titre": [0.123, 0.356, 0.65], 
  "des mots quelconques": [0.006],
  "autre chose": [0.981]}
 ```
@@ -306,4 +306,4 @@ nouveaux champs)
 - Essayer d'améliorer les performances en moyennant avec un autre modèle NER comme [huggingface](https://huggingface.co/){:target="_blank"} 
 ou [allennlp](https://allennlp.org/){:target="_blank"} lorsque la confiance est basse
 
-- Étudier les erreurs du point de vue de la données : problème d'échantillonage pour les incertitudes élevées ?
+- Étudier les erreurs du point de vue de la données : problème d'échantillonnage pour les incertitudes élevées ?
