@@ -8,7 +8,7 @@ lang:   🇬🇧 Back in english
 ref:    spacy
 ---
 
-In this article, we will see how the search for uncertainty of a fairly complex model enables to substantialy 
+In this article, we will see how the search for uncertainty of a fairly complex model enables to substantially 
 increase accuracy as well as end user satisfaction with a supervised learning system.
 
 The topics will be detailed in the following order: context and first adopted solution, choice of model
