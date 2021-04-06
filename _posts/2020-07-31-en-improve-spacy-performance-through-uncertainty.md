@@ -261,7 +261,7 @@ FinalAccuracy &=& 0.39 * Accuracy_{Conf>0.4} + (1-0.39) * Accuracy_{Conf<0.4} \\
 # Conclusion
 
 The goal is not quite reached but the gain is substantial. Vincent Warderdam recalls lucidly in [this presentation
-](https://youtu.be/Z8MEFI7ZJlA?t=662){:target="_blank"} that he it is sane to "predict less but carefully". Using uncertainty 
+](https://youtu.be/Z8MEFI7ZJlA?t=662){:target="_blank"} that it is sane to "predict less but carefully". Using uncertainty 
 information is beneficial in plenty of use cases. The conditions must simply be validated by the user. For example, 
 it would not have been suitable in our example to give the 5 highest confident predictions because the user
 would have had too much information to process.

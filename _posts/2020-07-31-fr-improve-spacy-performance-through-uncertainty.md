@@ -227,7 +227,7 @@ on trie par ordre décroissant. La normalisation permet de comparer les confianc
 
 ```json
 {"le vrai titre du document": 0.605,
- "une appareance de titre": 0.211,
+ "une apparence de titre": 0.211,
  "autre chose": 0.183,
  "des mots quelconques": 0.001}
 ```
